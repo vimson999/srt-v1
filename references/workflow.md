@@ -76,24 +76,29 @@ Inspect available inputs and resume from the furthest completed phase:
 
 Do not make the user repeat work already present.
 
-## Phase 1 — Direct from SRT
+## Phase 1 — Narrative map, chapter arcs, and visual beats
+
+Do not convert SRT entries directly into a rotating list of visual modes. First
+make the argument legible, then choose how to stage it.
 
 1. Parse total duration, subtitle count, sections, topic shifts, data-heavy passages, arguments, risks, comparisons, and conclusions.
-2. Merge subtitles into semantic visual units. Typical range: 5–15s. Openers may be 2–5s; complex explainers may be 10–20s.
-3. Assign each unit a visual mode:
-   - `BROLL_OVERLAY`
-   - `REPORT_EVIDENCE`
-   - `DATA_HERO`
-   - `CHART`
-   - `PROCESS_FLOW`
-   - `COMPARISON`
-   - `SECTION_TITLE`
-   - `FULL_BROLL`
-   - `RISK_MATRIX`
-   - `TIMELINE`
-   - `MAP`
-4. Produce `storyboard.csv` and a concise director summary.
-5. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
+2. Merge subtitles into semantic source units. Typical range: 5–15s. Openers may be 2–5s; complex explainers may be 10–20s. A subtitle boundary is not automatically a shot boundary.
+3. Create `narrative_map.json` with the major questions, claims, evidence, turns, risks, conclusions, and source-status requirements.
+4. Create `chapter_arcs.json` describing each chapter's opening question, development, turn, closing takeaway, dominant visual grammar, and anti-patterns.
+5. Create `visual_beats.jsonl`. For every beat, state:
+   - `start_state`: what the viewer sees or understands on entry;
+   - `information_delta`: what this beat adds, changes, compares, or resolves;
+   - `end_state`: what the viewer should understand on exit;
+   - `shot_function`: context, claim, evidence, explanation, comparison, transition, pause, or conclusion;
+   - `visual_responsibility`: context, structured explanation, exact evidence, or mixed;
+   - `cut_reason`: why this beat begins, ends, or changes.
+6. Expand beats into execution shots only when a new layout, asset, information state, or attention target is needed. A single shot may contain several visual states; several shots may serve one beat.
+7. Use `storyboard.jsonl` as the renderer-agnostic execution contract. Keep the legacy `storyboard.csv` as a compatibility export when a downstream tool requires it.
+8. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
+
+For short, simple pieces the artifacts may be compact, but the same fields still
+need to be represented. The director summary should report the narrative,
+chapter, beat, and shot counts—not only a visual-mode mix.
 
 ## Phase 2 — Asset planning
 
@@ -113,6 +118,11 @@ Do not make the user repeat work already present.
    **Material quantity is not a production blocker** and additional footage is
    optional unless no honest visual support exists.
 5. Present only the next actionable procurement batch unless the user requests the full list.
+
+Bind assets to the visual responsibility of the beat or shot. A context clip is
+not evidence merely because its filename contains the right noun. When one
+evidence asset can satisfy a beat, continuation shots may use context or a
+programmatic visual without inventing duplicate evidence requirements.
 
 The procurement response must end with one concrete handoff sentence, for
 example: “把以上文件放入 `asset-library/inbox/<project_id>/`，然后告诉我
@@ -149,12 +159,29 @@ completion notice:
 3. Avoid black gaps: a visual unit may extend through small speech pauses until the next unit begins.
 4. Data claims must resolve to structured data or exact source text; do not hardcode facts inside animation components when a data file exists.
 5. Calculate and record video-background coverage separately from unique footage
-   duration and reuse. A 90% coverage target is not permission to use an
-   identical immediate loop conspicuously; it is also not a reason to block a
-   full-length composition when varied reuse is acceptable.
+   duration and reuse. A configured 90% coverage diagnostic is not permission
+   to use an identical immediate loop conspicuously; it is also not a reason to
+   block a full-length composition when varied reuse is acceptable.
 6. Validate shot continuity, asset refs, chart refs, data refs, media paths,
    subtitle timing, asset-library paths, background visibility, and project
-   status before handoff.
+   status before handoff. Treat any coverage percentage as a diagnostic rather
+   than a substitute for the visual-responsibility and review gates.
+
+### Plan review and render review
+
+Before production handoff, run two distinct reviews:
+
+1. **Plan review** — inspect the narrative map, chapter arcs, beat transitions,
+   shot functions, information deltas, asset responsibilities, and source gates.
+   Record `plan_score` and hard-gate failures without pretending that a filled
+   table proves visual quality.
+2. **Representative render review** — render a 30–90s representative section
+   or the smallest section that exercises the visual system. For key shots inspect
+   entry, information-peak, and exit states. For important transitions inspect a
+   2–4s motion sample. Record `render_score` separately from `plan_score`.
+3. **Full-film review** — after the representative section is accepted, inspect
+   low-resolution full-film rhythm and chapter continuity, then render the final
+   export. A background-coverage percentage cannot replace this review.
 
 ## Phase 5 — Production handoff
 

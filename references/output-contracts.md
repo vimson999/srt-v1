@@ -39,11 +39,74 @@ Initialization may create valid empty JSON objects/arrays for later contracts, b
 
 ## Phase 1
 
+### Director middle-layer contracts
+
+For a non-trivial project, these contracts are the source of truth between SRT
+parsing and renderer execution. JSONL records are one object per line.
+
+#### `narrative_map.json`
+
+Required top-level fields:
+
+`schema_version,project_id,timing_source,source_status,segments`
+
+Each `segments` item should include:
+
+`segment_id,source_start,source_end,question,claim_chain,evidence_policy,background_policy,turn,conclusion`
+
+`claim_chain` records the claims and their relationships, for example
+`supports`, `contrasts`, `qualifies`, `causes`, `risks`, or `concludes`. Keep
+exact values and source requirements in the segment or its linked data contract;
+do not hide them in a prose note.
+
+#### `chapter_arcs.json`
+
+Required top-level fields:
+
+`schema_version,project_id,arcs`
+
+Each arc should include:
+
+`chapter_id,segment_ids,opening_question,development,turn,closing_takeaway,dominant_visual_grammar,anti_patterns,source_gate`
+
+#### `visual_beats.jsonl`
+
+Required fields:
+
+`beat_id,chapter_id,source_start,source_end,shot_ids,shot_function,start_state,information_delta,end_state,attention_target,visual_responsibility,background_role,cut_reason,source_status`
+
+Use `background_role=none_required|context_only|evidence_backing` and keep it
+separate from the measured video-layer coverage.
+
+#### `storyboard.jsonl`
+
+Required fields:
+
+`shot_id,beat_ids,chapter_id,source_start,source_end,local_start,local_end,shot_function,claim_type,start_state,information_delta,end_state,attention_target,visual_grammar,visual_design,programmatic_visual,assets,asset_role,motion_arc,motion_reason,cut_reason,transition_out,caption_policy,source_status,plan_score,render_score,status`
+
+`plan_score` and `render_score` begin as `null` until their respective reviews.
+`assets` must identify stable asset IDs or explicit programmatic/data refs, not
+only filenames. `status` should distinguish planned, reviewed, approved, and
+needs_revision.
+
+#### `shot_review.jsonl`
+
+Required fields:
+
+`shot_id,beat_id,hard_gate_status,source_gate,plan_score,render_score,plan_notes,render_notes,review_status,revision_id`
+
+This contract records review evidence; it does not replace the shot plan.
+
 ### `storyboard.csv`
 
-Required columns:
+Required compatibility columns:
 
 `shot_id,start,end,chapter,narration_focus,visual_mode,visual_design,on_screen_text,motion,asset_need`
+
+The CSV may be generated for legacy tools, but it is not a substitute for the
+narrative map, chapter arcs, visual beats, or JSONL execution contract. If the
+CSV is the only downstream format available, preserve the new fields in a
+sidecar JSONL file and keep the join key `shot_id` stable.
 
 ### `director_summary.md`
 
@@ -82,7 +145,7 @@ incomplete records are surfaced in `catalog/review_queue.json`.
 
 Recommended fields:
 
-`shot_id,start,end,visual_type,generated_visual,primary_asset,secondary_assets,fallback_assets`
+`shot_id,beat_id,start,end,visual_type,generated_visual,primary_asset,secondary_assets,fallback_assets,asset_role,source_status`
 
 ### `missing_assets.json`
 
@@ -94,7 +157,7 @@ Each item: `shot_id,need,reason,keywords,suggested_sites,priority`.
 
 Each shot should include:
 
-`shot_id,source_start,source_end,local_start,local_end,duration,visual_type,visual_id,chart_ref,data_ref,primary_asset,secondary_assets,transition_out`
+`shot_id,beat_id,source_start,source_end,local_start,local_end,duration,shot_function,visual_type,visual_id,chart_ref,data_ref,primary_asset,secondary_assets,transition_out`
 
 For excerpts, preserve both source time and local composition time.
 

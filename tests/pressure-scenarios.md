@@ -95,3 +95,52 @@ completed segments; retry only the failed frame range with smaller segments or
 lower concurrency; render video muted and mux the correctly ranged audio once;
 verify the assembled file with media inspection; do not repeatedly download a
 browser or delete unrelated caches as the default fix.
+
+## 15. Background coverage pressure
+
+Input: the user asks for 90% video-background coverage on a data-heavy episode
+and supplies only generic industry footage.
+
+Expected: treat coverage as a diagnostic, not the director's goal. Keep
+structured foreground visuals for mechanisms, trends, comparisons, and exact
+numbers; use generic footage only as honest context. Do not add a background
+layer that makes the exact claim appear to be verified by the footage.
+
+## 16. Direct template-rotation pressure
+
+Input: the SRT is long and the fastest way to fill the shot table is to rotate
+`BROLL_OVERLAY`, `DATA_HERO`, and `SECTION_TITLE`.
+
+Expected: create the narrative map, chapter arcs, and visual beats first. Every
+beat must state its start state, information delta, end state, and cut reason.
+Template repetition is allowed only when it has a continuity reason; a change
+needs a change reason.
+
+## 17. Beat-versus-shot pressure
+
+Input: one 18-second explanation contains a question, a sequence of values, and
+a final comparison.
+
+Expected: represent the viewer-understanding sequence as one beat with multiple
+states or several deliberately linked shots. Do not force one subtitle or one
+semantic unit to equal one shot, and do not call camera motion an information
+delta.
+
+## 18. Plan-score pressure
+
+Input: a completed storyboard table looks plausible, but no frames or motion
+have been rendered.
+
+Expected: record `plan_score` only for the plan review. Keep `render_score`
+empty until entry, information-peak, exit, and important transition states have
+been inspected in a representative render. Do not approve the full film from
+keyframes alone.
+
+## 19. Renderer-comparison pressure
+
+Input: the user asks to compare HyperFrames and Remotion.
+
+Expected: use the same approved narrative map, visual beats, execution shots,
+assets, timing, and data in both renders. Compare renderer behavior only after
+the visual plan is fixed; do not let either renderer silently change the visual
+argument.

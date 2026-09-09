@@ -154,11 +154,12 @@ It is not the percentage of unique footage. Report both values:
 - number of semantic categories and alternates;
 - approximate reuse count or reused Shot IDs.
 
-For a high-background finance podcast, use 90% as the default coverage target
-when the user has not specified another target. Keep pure data or evidence
-holdouts when readability or source exactness requires them. If the library is
-too small, proceed with semantically honest programmatic visuals and varied
-reuse when the user has not requested more sourcing. **Looping and reuse are allowed**
+For a high-background finance podcast, 90% may be retained as a configurable
+coverage diagnostic when the user has not specified another target. It is not a
+director goal or approval gate. Keep pure data or evidence holdouts when
+readability or source exactness requires them. If the library is too small,
+proceed with semantically honest programmatic visuals and varied reuse when the
+user has not requested more sourcing. **Looping and reuse are allowed**
 for full-length compositions. **Do not treat additional footage as required**
 merely because unique source seconds are shorter than the
 composition. Do not disguise repeated footage as new material: record the

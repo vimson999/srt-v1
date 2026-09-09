@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "project_id": "replace_me",
+  "timing_source": "input/subtitles.srt",
+  "source_status": "narration",
+  "segments": []
+}

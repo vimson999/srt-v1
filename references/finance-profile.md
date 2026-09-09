@@ -26,11 +26,18 @@ the report visual.
 
 ## Background coverage and material planning
 
-For a finance video podcast with visible contextual footage, use 90% video-layer
-coverage as the default target unless the user chooses another ratio. This is
-the percentage of composition frames containing a valid background-video layer,
-not the percentage of unique source footage. Pure data and exact evidence
-holdouts are allowed when readability or source fidelity requires them.
+For a finance video podcast with visible contextual footage, 90% video-layer
+coverage may remain a configurable diagnostic unless the user chooses another
+ratio. It is the percentage of composition frames containing a valid
+background-video layer, not the percentage of unique source footage and not a
+director success criterion. Pure data and exact evidence holdouts are expected
+when readability or source fidelity requires them.
+
+Use three responsibility levels when planning a beat:
+
+- context, atmosphere, or industry setting: broad semantic B-roll can be enough;
+- mechanism, trend, causal chain, or capital/process flow: add structured foreground explanation;
+- exact number, rating, target, valuation, or report conclusion: use readable evidence or structured data.
 
 Report both coverage and material sufficiency:
 
@@ -64,8 +71,6 @@ restrained dark institutional treatment and tune opacity by visual mode. A
 useful starting band after readability overlays is approximately `0.22–0.42`:
 lower beneath dense charts or report evidence, higher for section titles and
 context-led moments. Verify both a still frame and a moving preview.
-
-Avoid 10 minutes of the same left-side translucent card. Vary composition within one system: left/right panel, centered metric, horizontal flow, bottom data band, full-screen number, report paper, split comparison, three-column institution view.
 
 Avoid 10 minutes of the same left-side translucent card. Vary composition within one system: left/right panel, centered metric, horizontal flow, bottom data band, full-screen number, report paper, split comparison, three-column institution view.
 

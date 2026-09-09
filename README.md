@@ -1,6 +1,14 @@
 # srt-visual-director
 
-A reusable agent skill for turning timed narration/SRT into a renderer-agnostic visual-director project: initialization, visual direction, asset procurement, asset audit, executable timeline contracts, subtitle-aware production handoff, and renderer execution guidance.
+A reusable agent skill for turning timed narration/SRT into a renderer-agnostic visual-director project: narrative mapping, chapter arcs, visual beats, execution shots, asset procurement, asset audit, executable timeline contracts, subtitle-aware production handoff, and renderer execution guidance.
+
+The core planning chain is:
+
+`SRT → narrative_map.json → chapter_arcs.json → visual_beats.jsonl → storyboard.jsonl → plan review → representative render review`
+
+`storyboard.csv` remains available as a compatibility export, but it is not the
+director source of truth. Background coverage is a diagnostic; visual quality is
+judged by whether each beat makes the intended information change visible.
 
 ## Install in Codex / compatible agents
 
@@ -21,6 +29,10 @@ For a new project, the skill should first initialize `projects/<project_id>/`, c
 For finance content, the skill defaults to horizontal 16:9, 1920×1080, 30fps, and burned-in subtitles unless instructed otherwise. For recurring finance
 video production, it also uses a shared `asset-library/` beside `projects/`;
 asset IDs are shared while audio and subtitles remain project-owned.
+
+For non-trivial projects, also read `references/visual-direction.md` and
+`references/visual-quality-review.md`. Keep the generic rules here; put company,
+report, number, chapter, and asset facts in the project contracts.
 
 After the user supplies requested media, they only need to place it in
 `asset-library/inbox/<project_id>/` and say “素材已准备好，继续”. The agent
