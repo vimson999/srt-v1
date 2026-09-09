@@ -10,6 +10,7 @@ from shutil import copy2
 ROOT = Path(__file__).resolve().parent.parent
 INTAKE_SCRIPT = ROOT / 'scripts' / 'intake_assets.py'
 INDEX_SCRIPT = Path('/Users/v9/Downloads/report-video/asset-library/catalog/build-index.mjs')
+GOVERNANCE_SCRIPT = Path('/Users/v9/Downloads/report-video/asset-library/catalog/governance-core.mjs')
 
 if not INTAKE_SCRIPT.exists():
     raise SystemExit('FAIL: scripts/intake_assets.py does not exist')
@@ -43,6 +44,8 @@ with tempfile.TemporaryDirectory() as td:
 
 if not INDEX_SCRIPT.exists():
     raise SystemExit(f'FAIL: missing index builder at {INDEX_SCRIPT}')
+if not GOVERNANCE_SCRIPT.exists():
+    raise SystemExit(f'FAIL: missing governance helper at {GOVERNANCE_SCRIPT}')
 
 with tempfile.TemporaryDirectory() as td:
     root = Path(td) / 'factory'
@@ -97,6 +100,7 @@ with tempfile.TemporaryDirectory() as td:
     )
     builder = catalog / 'build-index.mjs'
     copy2(INDEX_SCRIPT, builder)
+    copy2(GOVERNANCE_SCRIPT, catalog / 'governance-core.mjs')
     subprocess.run(['node', str(builder)], check=True, capture_output=True, text=True)
     index = json.loads((catalog / 'assets.json').read_text(encoding='utf-8'))
     record = next(asset for asset in index['assets'] if asset['asset_id'] == 'factory_line')

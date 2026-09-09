@@ -158,6 +158,7 @@ def initialize_project(
         "data/financials.json": {},
         "data/charts.json": {},
         "data/institutions.json": {},
+        "data/motion_cues.json": {"schema_version": 1, "cues": []},
         "manifest/assets.json": {
             "schema_version": 1,
             "asset_library": {

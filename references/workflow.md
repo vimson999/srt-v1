@@ -44,6 +44,7 @@ projects/<project_id>/
     financials.json
     charts.json
     institutions.json
+    motion_cues.json
   manifest/
     assets_required.csv
     assets.json
@@ -93,8 +94,16 @@ make the argument legible, then choose how to stage it.
    - `visual_responsibility`: context, structured explanation, exact evidence, or mixed;
    - `cut_reason`: why this beat begins, ends, or changes.
 6. Expand beats into execution shots only when a new layout, asset, information state, or attention target is needed. A single shot may contain several visual states; several shots may serve one beat.
-7. Use `storyboard.jsonl` as the renderer-agnostic execution contract. Keep the legacy `storyboard.csv` as a compatibility export when a downstream tool requires it.
-8. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
+7. When attention changes inside one shot, create timed attention cues that map
+   SRT-derived spoken windows to stable visible target IDs. If the user approves
+   one cue behavior as an example and asks for the same judgment throughout,
+   scan all beats and shots for analogous names, metrics, report facts, chart
+   nodes, flow steps, risks, and conclusions. Generalize the decision rule
+   without forcing motion onto unrelated holds. Record `attention_cue_ref=null`
+   plus the existing motion reason for stable shots so scan completion cannot be
+   confused with cue coverage.
+8. Use `storyboard.jsonl` as the renderer-agnostic execution contract. Keep the legacy `storyboard.csv` as a compatibility export when a downstream tool requires it.
+9. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
 
 For short, simple pieces the artifacts may be compact, but the same fields still
 need to be represented. The director summary should report the narrative,
@@ -156,13 +165,16 @@ completion notice:
 
 1. Build `timeline.json` from SRT timing and storyboard units.
 2. Preserve original source time and local composition time when rendering excerpts.
-3. Avoid black gaps: a visual unit may extend through small speech pauses until the next unit begins.
-4. Data claims must resolve to structured data or exact source text; do not hardcode facts inside animation components when a data file exists.
-5. Calculate and record video-background coverage separately from unique footage
+3. Build `data/motion_cues.json` for shots with in-shot attention changes.
+   Validate cue windows against shot ranges and ensure every `target_id`
+   resolves before renderer handoff.
+4. Avoid black gaps: a visual unit may extend through small speech pauses until the next unit begins.
+5. Data claims must resolve to structured data or exact source text; do not hardcode facts inside animation components when a data file exists.
+6. Calculate and record video-background coverage separately from unique footage
    duration and reuse. A configured 90% coverage diagnostic is not permission
    to use an identical immediate loop conspicuously; it is also not a reason to
    block a full-length composition when varied reuse is acceptable.
-6. Validate shot continuity, asset refs, chart refs, data refs, media paths,
+7. Validate shot continuity, asset refs, chart refs, data refs, cue refs, media paths,
    subtitle timing, asset-library paths, background visibility, and project
    status before handoff. Treat any coverage percentage as a diagnostic rather
    than a substitute for the visual-responsibility and review gates.
@@ -178,7 +190,9 @@ Before production handoff, run two distinct reviews:
 2. **Representative render review** — render a 30–90s representative section
    or the smallest section that exercises the visual system. For key shots inspect
    entry, information-peak, and exit states. For important transitions inspect a
-   2–4s motion sample. Record `render_score` separately from `plan_score`.
+   2–4s motion sample. For multi-target shots, inspect at least two cue
+   activations and the handoff between them. Record `render_score` separately
+   from `plan_score`.
 3. **Full-film review** — after the representative section is accepted, inspect
    low-resolution full-film rhythm and chapter continuity, then render the final
    export. A background-coverage percentage cannot replace this review.

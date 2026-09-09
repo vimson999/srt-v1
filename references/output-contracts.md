@@ -157,13 +157,36 @@ Each item: `shot_id,need,reason,keywords,suggested_sites,priority`.
 
 Each shot should include:
 
-`shot_id,beat_id,source_start,source_end,local_start,local_end,duration,shot_function,visual_type,visual_id,chart_ref,data_ref,primary_asset,secondary_assets,transition_out`
+`shot_id,beat_id,source_start,source_end,local_start,local_end,duration,shot_function,visual_type,visual_id,chart_ref,data_ref,attention_cue_ref,primary_asset,secondary_assets,transition_out`
 
 For excerpts, preserve both source time and local composition time.
+
+### `motion_cues.json`
+
+Use this sidecar when one or more shots change attention target without a cut.
+An empty project contract is:
+
+```json
+{"schema_version": 1, "cues": []}
+```
+
+Each cue should include:
+
+`cue_id,shot_id,source_start,source_end,local_start,local_end,spoken_trigger,target_id,emphasis,inactive_behavior`
+
+`source_start/source_end` are derived from the SRT timing authority.
+`local_start/local_end` preserve excerpt offsets. `target_id` must resolve to
+one visible renderer element. Cue windows must stay inside their shot, use
+integer-frame rounding only at renderer handoff, and avoid unintended overlap
+between mutually exclusive targets.
 
 ## Design artifact
 
 When production is imminent, produce `DESIGN.md` defining canvas, typography, spacing, safe area, number hierarchy, card/overlay treatment, chart style, motion rules, subtitle safe zone, transitions, and anti-patterns. For high-background profiles, also record `asset_opacity`, `overlay_alpha`, the representative shots used for the visibility check, and any mobile-legibility decision. These fields make background visibility reproducible instead of treating it as an untracked visual impression.
+
+When `motion_cues.json` is used, `DESIGN.md` should also define the attention
+language: target emphasis, inactive-peer behavior, enter/hold/settle timing, and
+the representative cue transitions used for review.
 
 ### Coverage report
 

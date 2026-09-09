@@ -17,6 +17,8 @@ function:
 - source and local timecodes are valid;
 - the shot is executable by the selected renderer;
 - the audio/caption timing contract is preserved.
+- every timed attention cue resolves to a visible target and does not hide or
+  distort the underlying evidence.
 
 Record the result as `hard_gate_status=pass|fail|needs_review`. A low soft score
 does not excuse a hard-gate failure.
@@ -71,11 +73,23 @@ Inspect important transitions as a 2–4 second motion sample. Check animation
 speed, layering, caption collision, entry/exit behavior, and whether motion
 competes with the spoken point.
 
+For a shot with multiple attention targets, inspect more than one cue
+activation and the handoff between targets. Confirm that the active target
+wins attention, inactive peers remain legible, and the cue starts and settles
+inside the correct SRT-derived window.
+
+Review background salience in the final composite, not only foreground-only
+frames. Include the brightest evidence-heavy shot and a context-led shot; fail
+the review when background highlights or motion compete with the evidence or
+captions even if measured video coverage is 100%.
+
 ### 3. Full-film review
 
 After the representative section passes, review the full piece at low resolution
 for chapter rhythm, attention fatigue, repeated layouts, abrupt transitions,
 unresolved claims, and the balance of context, explanation, evidence, and pause.
+If a cue behavior was approved as a reusable example, verify that analogous
+attention changes across the full timeline received the same decision rule.
 Then run the renderer's technical preflight and export. A high background
 coverage percentage cannot replace this review.
 

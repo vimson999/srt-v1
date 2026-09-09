@@ -44,7 +44,9 @@ Any rendered review or final video burns subtitles in by default unless the user
 
 1. Validate all JSON and media refs.
 2. Complete plan review, then render a representative 30–90s section first if the visual system is unproven.
-3. Inspect entry, peak, and exit states plus important 2–4s transitions; record render review separately from plan review.
+3. Inspect entry, peak, and exit states plus important 2–4s transitions. For
+   multi-target shots, inspect at least two timed cue activations and their
+   handoff; record render review separately from plan review.
 4. After approval, scale the same design system to the full timeline.
 5. Use preview quality first (e.g. 720p) for full-length V1; render final 1080p after review.
 

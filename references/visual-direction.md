@@ -37,6 +37,37 @@ Every shot records its `shot_function`, `source_status`, asset role, layout,
 motion reason, and transition out. `motion_arc` describes movement; it does not
 replace `information_delta`.
 
+## Timed attention cues
+
+Use a timed attention cue when the viewer should stay inside one composition
+while the narration changes which visible element matters. Typical triggers are
+sequentially named institutions, compared metrics, report facts, chart nodes,
+flow steps, risk factors, and conclusion cards.
+
+Each cue maps a source-time window to a stable renderer-visible `target_id`
+and records:
+
+- `cue_id`, `shot_id`, `source_start`, and `source_end`;
+- `spoken_trigger`: the narrated name, value, or idea that activates it;
+- `target_id`: the exact card, row, report region, node, or label to emphasize;
+- `emphasis`: the restrained visual change, such as scale, lift, contrast,
+  outline, crop, or camera push;
+- `inactive_behavior`: how same-level alternatives recede without becoming
+  unreadable.
+
+The target should enter, hold through the spoken point, and settle before the
+next target wins attention. Motion strength is implementation-specific; use the
+smallest change that makes the attention shift legible. Stable holds remain
+valid when the narration does not change target.
+
+When the user identifies one successful cue as an example and asks for that
+judgment to carry through the film, scan every beat and shot for analogous
+attention changes. Generalize the decision rule, not the exact layout or
+animation values. Do not limit the revision to the example shot, and do not add
+motion to shots that lack a corresponding information or attention change. A
+complete scan may legitimately leave most shots uncued; 100% shot motion is not
+a completeness metric.
+
 ## Function-first visual grammar
 
 Choose a visual grammar because it performs a function, not because the last
@@ -88,6 +119,14 @@ Use explicit status values such as `verified`, `user_provided`, `narration`, and
 `needs_source`. A narration-only claim may be staged as narration, but it must
 not be presented as independently verified evidence. Context assets must record
 what they may express and what they must not be taken to claim.
+
+## Audience-facing screen copy
+
+Every visible label or explanatory sentence must help the audience understand
+the current claim, evidence, comparison, or conclusion. Do not place internal
+production language—workflow notes, prompt wording, or statements about how the
+video was made—where authentic source evidence should appear. Such process
+language is appropriate only when the narration itself discusses that process.
 
 ## Renderer boundary
 

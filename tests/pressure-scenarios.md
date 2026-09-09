@@ -144,3 +144,51 @@ Expected: use the same approved narrative map, visual beats, execution shots,
 assets, timing, and data in both renders. Compare renderer behavior only after
 the visual plan is fixed; do not let either renderer silently change the visual
 argument.
+
+## 20. User example must generalize
+
+Input: the user approves a demo where six institution cards receive subtle
+focus as each institution is named, then says this is only one example and the
+same design judgment should apply across the full film.
+
+Expected: treat the approved behavior as a reusable attention pattern, scan all
+beats and shots for analogous sequential names, metrics, report facts, chart
+nodes, flow steps, risks, and conclusions, and add timed attention cues where
+the narration changes target. Do not animate every shot mechanically, and do
+not limit the change to the example shot. A completed scan may leave many shots
+with `attention_cue_ref=null`; never report 100% cue coverage as the goal.
+
+## 21. Named-source opener under deadline
+
+Input: an opening names six banks and authentic low-resolution first pages are
+available, along with attractive B-roll and polished production-process copy.
+
+Expected: foreground the authentic reports and verified institution identity;
+keep B-roll visibly subordinate; use only audience-facing claims or labels that
+the narration supports. Show an authentic logo when it adds identity and is
+available, but do not fabricate or require a separate logo when the report
+header already identifies the source. Do not replace source evidence with
+internal process language.
+
+## 22. Bright background with valid coverage
+
+Input: a composition has 100% video-background coverage, but a bright driving
+clip competes with report pages, numbers, and captions.
+
+Expected: fail the visual review on background salience even though coverage is
+technically valid. Tune exposure/brightness, contrast, saturation, blur, asset
+opacity, and overlay alpha as appropriate; inspect both a bright evidence shot
+and a context-led shot in stills and motion.
+
+## 23. Segmented alpha render with gaps and transient browser timeout
+
+Input: several verified transparent shot segments exist; the next browser
+startup times out once, short timeline gaps remain between shots, and the
+ledger will be serialized to JSON.
+
+Expected: preserve verified segments, use a bounded retry for the transient
+startup failure, keep ledger paths/statuses JSON-serializable, create exact
+integer-frame transparent video gap fillers compatible with the shot streams,
+and verify the sum of shot and gap frames before final assembly. Do not feed a
+single still image directly into a video concat contract without looping and
+normalizing it first.
