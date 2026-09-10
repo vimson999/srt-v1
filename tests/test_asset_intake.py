@@ -9,7 +9,7 @@ from shutil import copy2
 
 ROOT = Path(__file__).resolve().parent.parent
 INTAKE_SCRIPT = ROOT / 'scripts' / 'intake_assets.py'
-INDEX_SCRIPT = Path('/Users/v9/Downloads/report-video/asset-library/catalog/build-index.mjs')
+INDEX_SCRIPT = ROOT / 'tests' / 'fixtures' / 'build-index.mjs'
 
 if not INTAKE_SCRIPT.exists():
     raise SystemExit('FAIL: scripts/intake_assets.py does not exist')

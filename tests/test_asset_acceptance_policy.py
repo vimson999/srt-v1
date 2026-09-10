@@ -48,7 +48,7 @@ assert_contains(
     ],
 )
 assert_contains(
-    Path("/Users/v9/Downloads/report-video/asset-library/catalog/build-index.mjs"),
+    ROOT / "tests" / "fixtures" / "build-index.mjs",
     [
         '"resolution_warning"',
         '"acceptance_basis"',
