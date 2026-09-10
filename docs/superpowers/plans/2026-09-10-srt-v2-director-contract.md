@@ -674,7 +674,7 @@ git push -u origin feat/v2-director-contract
 Report the branch name, commit list, verification commands and results, and any limitation such as the inability to create a PR automatically. Do not claim completion until the fresh verification output and Git status support it.
 
 Verification on 2026-09-10: `feat/v2-director-contract` was pushed to GitHub
-through `fafc116` before main integration.
+through `2c05ffc` before main integration.
 
 ### Task 11: Merge the verified V2 branch into main and push
 
@@ -700,14 +700,23 @@ Review reliability contracts. They were merged into the feature branch as
 commit `9a87438`; the additive conflicts were resolved by preserving both the
 existing upper-layer contracts and the V2 shot-directing middle layer.
 
-- [ ] **Step 2: Merge without rewriting history**
+- [x] **Step 2: Merge without rewriting history**
 
 Update the local main branch to `origin/main`, merge
 `feat/v2-director-contract` with a normal merge or fast-forward when ancestry
 permits, and do not force-push.
 
-- [ ] **Step 3: Re-run the complete suite on merged main and push**
+Verification on 2026-09-10: local `main` first fast-forwarded to
+`origin/main` at `35e4fd3`, then fast-forwarded to the verified feature tip at
+`2c05ffc`. No history was rewritten and no force push was used.
+
+- [x] **Step 3: Re-run the complete suite on merged main and push**
 
 Run the same fourteen-script suite and repository hygiene checks on merged main,
 then push `main` to `origin`. Verify local main, remote main, and the feature
 tip resolve to the intended commit graph before marking the goal complete.
+
+Verification on 2026-09-10: all fourteen repository scripts passed again on
+merged `main`; the storyboard template passed JSON parsing and contract
+validation; `git diff --check` was clean. The fast-forward push updated remote
+`main` from `35e4fd3` to `2c05ffc`.
