@@ -1,1 +1,1 @@
-shot_id,start,end,chapter,narration_focus,visual_mode,visual_design,on_screen_text,motion,asset_need
+shot_id,start,end,beat_id,beat_position,role_in_beat,chapter,narration_focus,visual_mode,visual_action,visual_design,on_screen_text,motion,motion_budget,asset_need,transition_reason,continuity_axis

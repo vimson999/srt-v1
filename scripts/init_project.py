@@ -20,6 +20,11 @@ TIMECODE_RE = re.compile(
 )
 TAG_RE = re.compile(r"<[^>]+>")
 SAFE_ID_RE = re.compile(r"[^a-zA-Z0-9_-]+")
+STORYBOARD_CSV_HEADER = (
+    "shot_id,start,end,beat_id,beat_position,role_in_beat,chapter,narration_focus,"
+    "visual_mode,visual_action,visual_design,on_screen_text,motion,motion_budget,"
+    "asset_need,transition_reason,continuity_axis"
+)
 
 
 def sanitize_project_id(value: str) -> str:
@@ -186,6 +191,16 @@ def initialize_project(
             json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
 
+    (project / "storyboard" / "storyboard.jsonl").write_text(
+        "", encoding="utf-8"
+    )
+    (project / "storyboard" / "storyboard.csv").write_text(
+        STORYBOARD_CSV_HEADER + "\n", encoding="utf-8"
+    )
+    (project / "storyboard" / "director_summary.md").write_text(
+        "# Director Summary\n\nStatus: pending Phase 1.\n", encoding="utf-8"
+    )
+
     project_json = {
         "schema_version": 1,
         "project_id": pid,
@@ -203,6 +218,13 @@ def initialize_project(
             "drop_zone": f"../../asset-library/inbox/{pid}",
             "resolution": "asset_id",
             "remotion_mount": "assets",
+        },
+        "storyboard_contract": {
+            "version": 2,
+            "path": "storyboard/storyboard.jsonl",
+            "summary_path": "storyboard/director_summary.md",
+            "csv_projection_path": "storyboard/storyboard.csv",
+            "validator": "scripts/validate_storyboard.py",
         },
         "renderer": None,
     }

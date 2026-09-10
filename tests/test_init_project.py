@@ -46,6 +46,18 @@ with tempfile.TemporaryDirectory() as td:
     if project_json.get('asset_library', {}).get('resolution') != 'asset_id':
         raise SystemExit('FAIL shared asset library contract')
 
+    jsonl_path = project / 'storyboard' / 'storyboard.jsonl'
+    csv_path = project / 'storyboard' / 'storyboard.csv'
+    summary_path = project / 'storyboard' / 'director_summary.md'
+    if not jsonl_path.exists() or jsonl_path.read_text(encoding='utf-8') != '':
+        raise SystemExit('FAIL canonical storyboard.jsonl should start empty')
+    if csv_path.read_text(encoding='utf-8').splitlines()[0] != mod.STORYBOARD_CSV_HEADER:
+        raise SystemExit('FAIL storyboard.csv header contract')
+    if 'pending phase 1' not in summary_path.read_text(encoding='utf-8').lower():
+        raise SystemExit('FAIL director summary initialization')
+    if project_json.get('storyboard_contract', {}).get('path') != 'storyboard/storyboard.jsonl':
+        raise SystemExit('FAIL storyboard contract pointer')
+
     metadata = json.loads(
         (root / 'report-video' / 'asset-library' / 'catalog' / 'metadata.json').read_text(
             encoding='utf-8'
