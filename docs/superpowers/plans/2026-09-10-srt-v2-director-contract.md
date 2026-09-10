@@ -82,7 +82,7 @@ python3 tests/validate_skill.py
 
 Expected: six commands exit 0 and print their existing PASS messages.
 
-- [ ] **Step 6: Commit the plan and baseline repair**
+- [x] **Step 6: Commit the plan and baseline repair**
 
 ~~~
 git add docs/superpowers/specs/2026-09-10-srt-v2-director-contract-design.md \
@@ -107,7 +107,7 @@ Expected: the commit is created on feat/v2-director-contract; the push updates t
 - Consumes: one JSON object per non-empty line in storyboard/storyboard.jsonl.
 - Produces: validate_record(record: dict, line_number: int = 1) -> list[str], validate_sequence(records: list[dict]) -> list[str], validate_storyboard(path: Path) -> list[str], and a CLI that exits 0 for a valid file and 1 with contextual errors for an invalid file.
 
-- [ ] **Step 1: Write the failing contract tests**
+- [x] **Step 1: Write the failing contract tests**
 
 Create a test module that imports scripts/validate_storyboard.py by file path and defines a valid VALID_SHOT fixture with all legacy and V2 fields. Add these named checks:
 
@@ -153,7 +153,7 @@ def test_requires_contiguous_positions_inside_each_beat():
     assert any("beat_position" in error for error in errors)
 ~~~
 
-- [ ] **Step 2: Run the focused test to verify the expected red state**
+- [x] **Step 2: Run the focused test to verify the expected red state**
 
 Run:
 
@@ -163,7 +163,7 @@ python3 tests/test_storyboard_contract.py
 
 Expected: import failure because scripts/validate_storyboard.py does not exist. If the test errors for another reason, fix the test harness until the missing production module is the only failure.
 
-- [ ] **Step 3: Implement the minimal validator**
+- [x] **Step 3: Implement the minimal validator**
 
 Implement the dependency-free validator with these exact rules:
 
@@ -179,7 +179,7 @@ Require every development state to contain state_id, numeric relative_start in t
 
 For sequence validation, reject duplicate IDs, negative or overlapping chronology, beat positions that do not start at 1 and increment by 1, an interior transition lacking anchors unless it uses continuity_axis=none with a non-empty contrast_reason, and a non-none axis without an exit or entry anchor. The first shot may have a null entry anchor; the last shot may have a null exit anchor.
 
-- [ ] **Step 4: Run the focused tests to verify green**
+- [x] **Step 4: Run the focused tests to verify green**
 
 Run:
 
@@ -189,7 +189,7 @@ python3 tests/test_storyboard_contract.py
 
 Expected: all five named checks pass with no traceback.
 
-- [ ] **Step 5: Verify the CLI failure and success paths**
+- [x] **Step 5: Verify the CLI failure and success paths**
 
 Run:
 
@@ -202,7 +202,7 @@ python3 scripts/validate_storyboard.py "$tmp_storyboard"
 
 Expected: help exits 0; the canonical template exits 0. Do not leave the temporary file in the repository.
 
-- [ ] **Step 6: Commit the validator**
+- [x] **Step 6: Commit the validator**
 
 ~~~
 git add scripts/validate_storyboard.py tests/test_storyboard_contract.py
@@ -224,7 +224,7 @@ git push origin feat/v2-director-contract
 - Consumes: the existing SRT initialization API initialize_project(...).
 - Produces: empty storyboard/storyboard.jsonl, a header-only storyboard/storyboard.csv, and storyboard/director_summary.md in every new project, plus a storyboard_contract entry in project.json that names the canonical contract and validator.
 
-- [ ] **Step 1: Extend the initialization test before production changes**
+- [x] **Step 1: Extend the initialization test before production changes**
 
 Add assertions to tests/test_init_project.py:
 
@@ -242,7 +242,7 @@ if project_json.get("storyboard_contract", {}).get("path") != "storyboard/storyb
     raise SystemExit("FAIL storyboard contract pointer")
 ~~~
 
-- [ ] **Step 2: Run the initialization test to verify red**
+- [x] **Step 2: Run the initialization test to verify red**
 
 Run:
 
@@ -252,7 +252,7 @@ python3 tests/test_init_project.py
 
 Expected: failure stating that the canonical storyboard.jsonl or contract pointer is missing.
 
-- [ ] **Step 3: Implement the smallest initialization change**
+- [x] **Step 3: Implement the smallest initialization change**
 
 Add a module constant:
 
@@ -280,15 +280,15 @@ Add this project pointer without changing the existing schema_version:
 }
 ~~~
 
-- [ ] **Step 4: Create the canonical JSONL template**
+- [x] **Step 4: Create the canonical JSONL template**
 
 Create templates/storyboard.jsonl with one valid generic record using SHOT_TEMPLATE_001, BEAT_TEMPLATE_001, no episode-specific facts, visual_action=establish, role_in_beat=establish, a reading_hold reason, a primary motion_budget, and a null entry anchor for the first shot. The file must pass scripts/validate_storyboard.py as a one-line JSONL file.
 
-- [ ] **Step 5: Update the CSV projection header**
+- [x] **Step 5: Update the CSV projection header**
 
 Keep every existing CSV column and add the compact Phase 1 fields beat_id, beat_position, role_in_beat, visual_action, motion_budget, transition_reason, and continuity_axis. Do not put JSON arrays or nested anchors into the CSV source contract.
 
-- [ ] **Step 6: Run the focused tests to verify green**
+- [x] **Step 6: Run the focused tests to verify green**
 
 Run:
 
@@ -299,7 +299,7 @@ python3 scripts/validate_storyboard.py templates/storyboard.jsonl
 
 Expected: both commands exit 0.
 
-- [ ] **Step 7: Commit the initialization contract**
+- [x] **Step 7: Commit the initialization contract**
 
 ~~~
 git add scripts/init_project.py tests/test_init_project.py \\
@@ -325,7 +325,7 @@ git push origin feat/v2-director-contract
 - Consumes: the canonical contract and validator from Tasks 2–3.
 - Produces: runtime-facing guidance that routes agents to one canonical storyboard contract and explains how the new fields coexist with existing evidence, attention, and render QA.
 
-- [ ] **Step 1: Write policy tests before documentation changes**
+- [x] **Step 1: Write policy tests before documentation changes**
 
 Create tests/test_v2_policy.py with file-level assertions for these exact behaviors:
 
@@ -359,7 +359,7 @@ assert_contains(ROOT / "references/execution-handoff.md", [
 ])
 ~~~
 
-- [ ] **Step 2: Run the policy test to verify red**
+- [x] **Step 2: Run the policy test to verify red**
 
 Run:
 
@@ -369,23 +369,23 @@ python3 tests/test_v2_policy.py
 
 Expected: failure on missing V2 contract wording.
 
-- [ ] **Step 3: Add the runtime contract reference**
+- [x] **Step 3: Add the runtime contract reference**
 
 Write references/director-contract.md with field semantics, the five Beat roles, the nine semantic actions, state-machine guidance, motion-budget guidance, anchor shape, continuity-axis values, boundary exceptions, and a direct statement that visual quality and source fidelity remain downstream of the contract.
 
-- [ ] **Step 4: Update the output contract**
+- [x] **Step 4: Update the output contract**
 
 Add a Phase 1 section defining storyboard/storyboard.jsonl as canonical, list the complete legacy-plus-V2 fields, define storyboard.csv as a compatibility projection, and point to scripts/validate_storyboard.py. Keep the existing director_summary.md metrics and add the Phase 1 summary requirements: Beat count, role progression, action mix, required reading holds, and unresolved handoffs.
 
-- [ ] **Step 5: Update workflow and renderer handoff guidance**
+- [x] **Step 5: Update workflow and renderer handoff guidance**
 
 In SKILL.md and references/workflow.md, route Phase 1 through Beat progression → Shot state → Visual Action → Motion Budget → Shot Handoff. State that existing Narrative Map, Visual Beat, Evidence, Timed Attention Cue, Render Review, and Render Reliability responsibilities remain authoritative. In references/execution-handoff.md, require a renderer to consume the state and handoff fields without redesigning source data.
 
-- [ ] **Step 6: Add finance-specific pacing guidance**
+- [x] **Step 6: Add finance-specific pacing guidance**
 
 In references/finance-profile.md, connect evidence-heavy moments to verify and pause, explanatory mechanisms to causal, comparisons to compare, and conclusions to conclude. State that a complex shot should be followed by a readable hold or simpler visual beat; do not prescribe fixed seconds or a mandatory layout rotation.
 
-- [ ] **Step 7: Run the policy and regression tests**
+- [x] **Step 7: Run the policy and regression tests**
 
 Run:
 
@@ -398,7 +398,7 @@ python3 tests/validate_skill.py
 
 Expected: all commands exit 0.
 
-- [ ] **Step 8: Commit the Phase 1 documentation**
+- [x] **Step 8: Commit the Phase 1 documentation**
 
 ~~~
 git add SKILL.md references/director-contract.md references/output-contracts.md \\
@@ -420,11 +420,11 @@ git push origin feat/v2-director-contract
 - Consumes: the complete Phase 1 contract, template, validator, and references.
 - Produces: user-facing installation/use documentation and pressure scenarios for sequence-aware direction.
 
-- [ ] **Step 1: Add Phase 1 pressure scenarios**
+- [x] **Step 1: Add Phase 1 pressure scenarios**
 
 Add cases covering: six institutions accumulating into consensus, a required reading hold after a data peak, an intentional hard cut with a contrast reason, and a broken interior handoff that must fail validation. Preserve the existing asset, subtitle, reuse, and render-reliability scenarios.
 
-- [ ] **Step 2: Update README usage**
+- [x] **Step 2: Update README usage**
 
 Document that a Phase 1 storyboard writes storyboard/storyboard.jsonl as the canonical rich contract, optionally emits the CSV projection for review, and can be checked with:
 
@@ -432,7 +432,7 @@ Document that a Phase 1 storyboard writes storyboard/storyboard.jsonl as the can
 python3 scripts/validate_storyboard.py projects/<project_id>/storyboard/storyboard.jsonl
 ~~~
 
-- [ ] **Step 3: Run the complete available regression suite**
+- [x] **Step 3: Run the complete available regression suite**
 
 Run:
 
@@ -447,7 +447,7 @@ done
 
 Expected: every test exits 0.
 
-- [ ] **Step 4: Inspect the final Phase 1 diff**
+- [x] **Step 4: Inspect the final Phase 1 diff**
 
 Run:
 
@@ -459,7 +459,7 @@ git diff --stat main...HEAD
 
 Expected: no whitespace errors, only the planned files changed, and the diff contains no renderer-specific dependency or unrelated refactor.
 
-- [ ] **Step 5: Commit the Phase 1 release note and push**
+- [x] **Step 5: Commit the Phase 1 release note and push**
 
 ~~~
 git add README.md tests/pressure-scenarios.md
