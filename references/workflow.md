@@ -166,6 +166,10 @@ completion notice:
 6. Validate shot continuity, asset refs, chart refs, data refs, media paths,
    subtitle timing, asset-library paths, background visibility, and project
    status before handoff.
+7. Run `scripts/review_sequence.py` on the ordered storyboard. Resolve
+   structural and reference errors; inspect repetition, cognitive-release,
+   motion-balance, and energy-curve warnings without treating them as automatic
+   aesthetic failures.
 
 ## Phase 5 — Production handoff
 

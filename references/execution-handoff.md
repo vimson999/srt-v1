@@ -34,6 +34,12 @@ Attention Cue data remain the authority for exact source content and cue
 timing; Render Review and Render Reliability remain the authority for visual
 inspection and export execution.
 
+Before opening the renderer, run `scripts/review_sequence.py` and attach
+`storyboard/sequence-review.json`. Resolve every error. Review warnings against
+the actual narration and intended energy curve; do not mechanically change a
+layout merely to silence a diagnostic threshold. Read
+`references/sequence-review.md` for the stable finding contract.
+
 ## Recommended persistent engine layout
 
 For repeated programmatic production, prefer one reusable engine and many project folders:

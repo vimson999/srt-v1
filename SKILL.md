@@ -52,6 +52,7 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - For every shot, record Beat position/role, the state sequence from entry through information peak to exit, one semantic `visual_action`, a `motion_budget`, and a `transition_reason` with its handoff anchors.
 - Before Shot Recipe or renderer handoff, choose one compatible Shot Language family and record why it solves that shot's information or attention problem.
 - When a canonical Shot Recipe fits, hand its ordered state timeline to the renderer adapter; record a recipe gap instead of forcing an incompatible pattern.
+- Before renderer handoff, generate a sequence review, resolve structural/reference errors, and inspect aesthetic warnings in context instead of treating thresholds as automatic failures.
 - Default long-form finance output is 16:9, 1920×1080; accept 4K sources; production normalization is H.264 MP4, 30fps.
 - Final rendered previews and finals **burn subtitles into the video by default** unless the user explicitly opts out. Keep captions in an independent layer and protect a subtitle safe zone.
 - For a recurring video factory, initialize or reuse `<factory_root>/asset-library/` beside `projects/`. Projects reference stable `asset_id` values; they do not copy shared media into every project.
@@ -89,6 +90,9 @@ canonical registry.
 For Shot Recipe selection or adapter design, also read
 `references/shot-recipes.md` and use `templates/shot-recipe.json` as the
 renderer-neutral recipe set.
+
+For sequence or full-film planning review, also read
+`references/sequence-review.md` and run `scripts/review_sequence.py`.
 
 For finance / research-report content, also read `references/finance-profile.md`.
 

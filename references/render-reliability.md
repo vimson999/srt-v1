@@ -1,5 +1,11 @@
 # Render Reliability
 
+Before renderer preflight, run the canonical storyboard validator and
+`scripts/review_sequence.py`. Resolve structural sequence errors and carry
+editorial warnings into representative render review. Sequence warnings do not
+prove a frame is unreadable, and a clean sequence report does not replace the
+preflight, smoke render, pixel inspection, or final media verification below.
+
 Use this reference before previewing or exporting a Remotion, HyperFrames, or
 other renderer composition, especially when the output is longer than a short
 test or contains audio and external media.

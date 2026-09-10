@@ -552,20 +552,23 @@ result was used as completion evidence.
 - Create: references/sequence-review.md
 - Create: scripts/review_sequence.py
 - Create: tests/test_sequence_review.py
+- Modify: SKILL.md
 - Modify: references/output-contracts.md
 - Modify: references/render-reliability.md
 - Modify: references/execution-handoff.md
+- Modify: references/workflow.md
+- Modify: tests/pressure-scenarios.md
 
 **Interfaces:**
 
 - Consumes: an ordered storyboard.jsonl, optional director_summary.md, and optional rendered-review metadata.
 - Produces: deterministic structural checks for Beat progression, repeated layout/action patterns, missing reading holds after dense information, unresolved handoffs, unbalanced motion budgets, and energy-curve annotations; it reports warnings separately from blocking contract errors.
 
-- [ ] **Step 1: Write failing sequence-review tests**
+- [x] **Step 1: Write failing sequence-review tests**
 
 Cover three consecutive shots using the same layout, a complex shot followed by no hold, a missing handoff, a clean contrast cut with reason, and a valid sequence with a simpler release shot.
 
-- [ ] **Step 2: Implement warnings without turning taste into hard rules**
+- [x] **Step 2: Implement warnings without turning taste into hard rules**
 
 Return structured findings with severity, shot_ids, rule, and message. Treat repeated layout, energy imbalance, and effect monotony as review warnings; treat malformed contracts and unsupported references as errors.
 

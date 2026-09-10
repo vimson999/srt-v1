@@ -160,3 +160,12 @@ does not match the shot's selected Shot Language or declared information peak.
 Expected: preserve the shot contract and record a recipe gap or choose another
 compatible recipe. Do not change `visual_action`, evidence, state order,
 reading hold, motion budget, or handoff merely to reuse the component.
+
+## 22. Repetition warning without aesthetic auto-fix
+
+Input: three consecutive shots intentionally use the same comparison mode and
+semantic action because the narration develops one shared scale.
+
+Expected: sequence review emits a structured warning and energy annotations,
+but does not fail the contract or automatically force a layout change. Review
+the rendered sequence and keep the repetition when it serves comprehension.
