@@ -608,9 +608,14 @@ Assert that an honest related context asset can rank as a fallback, an unverifie
 
 Keep raw files immutable, keep metadata sidecars durable, use stable asset_id joins, and write usage/repetition notes without copying the shared library into project folders.
 
-- [ ] **Step 3: Verify and commit Phase 5**
+- [x] **Step 3: Verify and commit Phase 5**
 
 Run all tests, inspect catalog path handling, commit with feat: add semantic asset reuse planning, and push.
+
+Verification on 2026-09-10: all twelve planned repository test scripts passed,
+including twelve asset-reuse behavior checks. The CLI test verified that the
+catalog, durable metadata, and usage sidecars remain byte-for-byte unchanged;
+the staged diff passed `git diff --check`.
 
 ### Task 10: Final branch verification and GitHub handoff
 
@@ -657,3 +662,33 @@ git push -u origin feat/v2-director-contract
 ~~~
 
 Report the branch name, commit list, verification commands and results, and any limitation such as the inability to create a PR automatically. Do not claim completion until the fresh verification output and Git status support it.
+
+### Task 11: Merge the verified V2 branch into main and push
+
+**Files:**
+
+- No planned production changes; merge the verified commit graph.
+
+**Interfaces:**
+
+- Consumes: a clean, fully verified `feat/v2-director-contract` branch and the
+  current remote `main`.
+- Produces: remote `main` containing the complete V2 upgrade with no omitted
+  commits or unverified post-merge state.
+
+- [ ] **Step 1: Refresh remote refs and verify merge ancestry**
+
+Fetch `origin`, confirm the feature branch contains the intended commits, and
+inspect `origin/main...feat/v2-director-contract` before changing main.
+
+- [ ] **Step 2: Merge without rewriting history**
+
+Update the local main branch to `origin/main`, merge
+`feat/v2-director-contract` with a normal merge or fast-forward when ancestry
+permits, and do not force-push.
+
+- [ ] **Step 3: Re-run the complete suite on merged main and push**
+
+Run the same twelve-script suite and repository hygiene checks on merged main,
+then push `main` to `origin`. Verify local main, remote main, and the feature
+tip resolve to the intended commit graph before marking the goal complete.
