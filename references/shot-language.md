@@ -30,6 +30,9 @@ It is not:
 `visual_action` states what the shot must do. `shot_language.family` states the
 reusable visual grammar chosen to do it. A later Shot Recipe makes that choice
 executable for a concrete shot, and a renderer adapter implements the recipe.
+Once the family is selected, read `references/shot-recipes.md` and retrieve a
+compatible recipe from `templates/shot-recipe.json`; never select a recipe
+first and reverse-engineer the shot's action or state to fit it.
 
 ## Selection workflow
 

@@ -19,6 +19,13 @@ shot-specific `selection_reason`. The family narrows how the lifecycle should
 be expressed; it does not authorize the renderer to replace the shot's state,
 motion budget, evidence, or handoff contracts.
 
+When a canonical Shot Recipe exists, pass its `id` and declarative
+`reference_implementation` to the renderer adapter. The adapter maps the five
+ordered lifecycle phases to concrete primitives while preserving source data,
+state order, attention cues, reading holds, motion responsibilities, and
+handoff anchors. Read `references/shot-recipes.md`; never treat a renderer
+component as the source recipe.
+
 Transitions must consume `transition_reason`, `exit_anchor`, `entry_anchor`,
 and `continuity_axis`. If `continuity_axis=none`, the renderer may use a clean
 hard cut when `contrast_reason` explains the editorial turn. It must not add a

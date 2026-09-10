@@ -151,3 +151,12 @@ Expected: preserve the semantic action, information peak, reading hold, motion
 budget, and handoff as the selection criteria. Do not encode effect counts,
 fixed layout quotas, mandatory 3D, or animation in every shot as Shot Language
 rules.
+
+## 21. Renderer-first recipe pressure
+
+Input: an implementation has an attractive renderer component, but its pattern
+does not match the shot's selected Shot Language or declared information peak.
+
+Expected: preserve the shot contract and record a recipe gap or choose another
+compatible recipe. Do not change `visual_action`, evidence, state order,
+reading hold, motion budget, or handoff merely to reuse the component.

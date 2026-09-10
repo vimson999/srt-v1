@@ -24,6 +24,11 @@ recorded with a shot-specific `selection_reason`. Shot Language is a reusable
 grammar, not another hierarchy level, an effect inventory, or a fixed layout
 quota.
 
+Phase 3 may then select a compatible renderer-neutral Shot Recipe from
+`templates/shot-recipe.json`. A recipe realizes the existing state lifecycle;
+it must not rewrite the shot's action, evidence, motion budget, reading hold,
+or handoff to fit an implementation.
+
 The canonical rich storyboard is `storyboard/storyboard.jsonl`, one shot per non-empty line. `storyboard/storyboard.csv` is a compact compatibility projection for review, not a second source of truth. Preserve `start_state`, `information_delta`, and `end_state`; add `development_states`, `information_peak`, and `reading_hold` to complete the state machine rather than renaming it.
 
 Existing Narrative Map, Visual Beat, Evidence, Timed Attention Cue, Render Review, and Render Reliability responsibilities remain authoritative. The V2 middle layer records what information changes and how attention moves; it does not replace source verification, cue timing, rendered-pixel review, or render preflight.
@@ -46,6 +51,7 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - Do **not** map one subtitle to one shot. Merge subtitles into semantic visual units, usually 5–15 seconds.
 - For every shot, record Beat position/role, the state sequence from entry through information peak to exit, one semantic `visual_action`, a `motion_budget`, and a `transition_reason` with its handoff anchors.
 - Before Shot Recipe or renderer handoff, choose one compatible Shot Language family and record why it solves that shot's information or attention problem.
+- When a canonical Shot Recipe fits, hand its ordered state timeline to the renderer adapter; record a recipe gap instead of forcing an incompatible pattern.
 - Default long-form finance output is 16:9, 1920×1080; accept 4K sources; production normalization is H.264 MP4, 30fps.
 - Final rendered previews and finals **burn subtitles into the video by default** unless the user explicitly opts out. Keep captions in an independent layer and protect a subtitle safe zone.
 - For a recurring video factory, initialize or reuse `<factory_root>/asset-library/` beside `projects/`. Projects reference stable `asset_id` values; they do not copy shared media into every project.
@@ -79,6 +85,10 @@ For Phase 1 shot-state and attention-handoff rules, also read `references/direct
 For semantic Shot Language selection or registry changes, also read
 `references/shot-language.md` and use `templates/shot-language.yaml` as the
 canonical registry.
+
+For Shot Recipe selection or adapter design, also read
+`references/shot-recipes.md` and use `templates/shot-recipe.json` as the
+renderer-neutral recipe set.
 
 For finance / research-report content, also read `references/finance-profile.md`.
 

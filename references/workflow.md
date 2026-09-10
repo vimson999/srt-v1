@@ -84,8 +84,9 @@ Do not make the user repeat work already present.
 4. For each shot, write the information state: `start_state` → ordered `development_states` → `information_peak` → optional protected `reading_hold` → `end_state`, with `information_delta` explaining the change in understanding.
 5. Choose one primary semantic action (`visual_action`) such as `verify`, `accumulate`, `causal`, `compare`, `conclude`, or `pause`; record a `motion_budget` with one primary motion responsibility, at most one supporting responsibility, and an ambient background policy.
 6. Retrieve compatible families from `templates/shot-language.yaml`, select one against the information lifecycle and handoff, and record `shot_language.family` plus a shot-specific `selection_reason`. Do not select by effect novelty or layout quotas.
-7. Write the attention handoff: why the transition happens, what `exit_anchor` remains, what `entry_anchor` is inherited, which `continuity_axis` carries attention, or why a deliberate contrast cut needs `contrast_reason`.
-8. Assign each unit a visual mode:
+7. When a matching canonical recipe exists in `templates/shot-recipe.json`, select it as the renderer-neutral implementation plan. Record a recipe gap instead of changing the action or forcing an unrelated recipe.
+8. Write the attention handoff: why the transition happens, what `exit_anchor` remains, what `entry_anchor` is inherited, which `continuity_axis` carries attention, or why a deliberate contrast cut needs `contrast_reason`.
+9. Assign each unit a visual mode:
    - `BROLL_OVERLAY`
    - `REPORT_EVIDENCE`
    - `DATA_HERO`
@@ -97,8 +98,8 @@ Do not make the user repeat work already present.
    - `RISK_MATRIX`
    - `TIMELINE`
    - `MAP`
-9. Produce canonical `storyboard/storyboard.jsonl`, the compact `storyboard/storyboard.csv` projection, and a concise director summary. Run `scripts/validate_storyboard.py` before handing the storyboard to a renderer.
-10. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
+10. Produce canonical `storyboard/storyboard.jsonl`, the compact `storyboard/storyboard.csv` projection, and a concise director summary. Run `scripts/validate_storyboard.py` before handing the storyboard to a renderer.
+11. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
 
 The Phase 1 middle layer describes information and attention flow; it does not
 replace Evidence records, Timed Attention Cues, Render Review, or Render

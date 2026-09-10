@@ -514,19 +514,23 @@ project dependency.
 - Create: references/shot-recipes.md
 - Create: templates/shot-recipe.json
 - Create: tests/test_shot_recipe_policy.py
+- Modify: SKILL.md
 - Modify: references/shot-language.md
 - Modify: references/execution-handoff.md
+- Modify: references/output-contracts.md
+- Modify: references/workflow.md
+- Modify: tests/pressure-scenarios.md
 
 **Interfaces:**
 
 - Consumes: one Phase 1 shot contract plus a selected Phase 2 language family.
 - Produces: a recipe shape with fit, avoid, entry, development, information_peak, reading_hold, exit, motion_personality, motion_budget, duration_guidance, pitfalls, and reference_implementation.
 
-- [ ] **Step 1: Test recipe completeness before authoring recipes**
+- [x] **Step 1: Test recipe completeness before authoring recipes**
 
 Create policy tests that reject a recipe missing lifecycle phases or a reference implementation and accept recipes that leave renderer choice open.
 
-- [ ] **Step 2: Author the first useful recipe set**
+- [x] **Step 2: Author the first useful recipe set**
 
 Document only evidence verification, sequential accumulation, aligned comparison, causal explanation, data hero, conclusion/pause, and clean hard-cut recipes. Do not copy a large card inventory or add 3D/particle effects as a diversity requirement.
 

@@ -116,6 +116,26 @@ Each family contains:
 
 This registry is a renderer-neutral policy artifact, not a component catalog.
 
+### Shot Recipe enrichment
+
+After selecting a compatible canonical recipe from `templates/shot-recipe.json`,
+record:
+
+```json
+{
+  "shot_recipe": {
+    "id": "aligned_value_comparison",
+    "selection_reason": "The selected comparison family needs one shared data scale"
+  },
+  "recipe_gap": null
+}
+```
+
+The recipe's `shot_language` must equal `shot_language.family`, and its
+`visual_actions` must contain the shot's `visual_action`. When no canonical
+recipe fits, use `shot_recipe=null` and a non-empty `recipe_gap`; do not mutate
+the shot contract to manufacture compatibility.
+
 ### `assets_required.csv`
 
 Required columns:

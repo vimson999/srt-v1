@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "registry_version": 1,
+  "contract": "renderer-neutral-shot-recipe",
+  "shot_record_contract": {
+    "field": "shot_recipe",
+    "id_field": "id",
+    "reason_field": "selection_reason",
+    "require_reason": true,
+    "gap_field": "recipe_gap",
+    "require_gap_when_unselected": true
+  },
+  "recipes": [
+    {
+      "id": "evidence_verification",
+      "shot_language": "report_reveal",
+      "visual_actions": ["verify"],
+      "fit": [
+        "An authentic source page or region must be attributable before a claim is synthesized."
+      ],
+      "avoid": [
+        "No authentic source artifact exists, or unreadable pixels would be presented as exact text."
+      ],
+      "entry": {
+        "goal": "Establish authentic page context before isolating the evidence.",
+        "consume": ["start_state", "entry_anchor", "evidence_refs"]
+      },
+      "development": {
+        "goal": "Locate source identity and then the exact evidence region in narration order.",
+        "consume": ["development_states", "timed_attention_cues"]
+      },
+      "information_peak": {
+        "goal": "Make the claim visibly attributable to the authentic source region.",
+        "consume": ["information_peak", "attention_target"]
+      },
+      "reading_hold": {
+        "goal": "Protect source identity and readable evidence when the shot contract requires it.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Carry the verified label, number, or region into the next visual operation.",
+        "consume": ["end_state", "exit_anchor", "continuity_axis"]
+      },
+      "motion_personality": "Forensic, restrained, and ordered from page context to evidence detail.",
+      "motion_budget": {
+        "primary_responsibility": "Locate and verify one evidence region.",
+        "supporting_policy": "At most one quiet source-context move may preserve orientation.",
+        "background_policy": "Do not let ambient motion compete with source legibility."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["source identity readability", "evidence density", "narration cadence"]
+      },
+      "pitfalls": [
+        "Fabricating a report-like page",
+        "Zooming into unreadable text and implying it was verified",
+        "Removing the institution or page context before attribution is clear"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Show authentic page context and establish the source anchor."},
+          {"phase": "development", "instruction": "Move attention from source identity to the supported region."},
+          {"phase": "peak", "instruction": "Hold source and claim relationship in one legible composition."},
+          {"phase": "hold", "instruction": "Suppress nonessential motion for the declared reading requirement."},
+          {"phase": "exit", "instruction": "Transform the verified region or value into the exit anchor."}
+        ],
+        "adapter_contract": [
+          "Map relative state times to the renderer timeline without changing evidence content.",
+          "Preserve evidence references, attention cues, motion budget, and handoff anchors."
+        ]
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "sequential_accumulation",
+      "shot_language": "sequential_card_build",
+      "visual_actions": ["accumulate"],
+      "fit": [
+        "Narrated items arrive in a meaningful order and their completed set forms the conclusion."
+      ],
+      "avoid": [
+        "The order is arbitrary, or a shared quantitative baseline is the real information operation."
+      ],
+      "entry": {
+        "goal": "Introduce the first credible item and the structure that will receive later items.",
+        "consume": ["start_state", "entry_anchor"]
+      },
+      "development": {
+        "goal": "Add one item per meaningful narration step while preserving prior context.",
+        "consume": ["development_states", "attention_target"]
+      },
+      "information_peak": {
+        "goal": "Make the completed set read as consensus, scale, or cumulative weight.",
+        "consume": ["information_peak", "information_delta"]
+      },
+      "reading_hold": {
+        "goal": "Let the final whole register before collapsing or repurposing it.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Convert a shared label, value, or baseline into the next shot's anchor.",
+        "consume": ["end_state", "exit_anchor", "continuity_axis"]
+      },
+      "motion_personality": "Rhythmic and cumulative, with each entrance subordinate to the final whole.",
+      "motion_budget": {
+        "primary_responsibility": "Add and focus the current item in semantic order.",
+        "supporting_policy": "Prior items may settle or recede without starting a second argument.",
+        "background_policy": "Keep the collection field stable enough to reveal accumulation."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["item count", "narration order", "final-set reading load"]
+      },
+      "pitfalls": [
+        "Treating items as unrelated cards",
+        "Animating every existing item whenever a new one arrives",
+        "Leaving no settled view of the completed set"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Establish the first item and the collection logic."},
+          {"phase": "development", "instruction": "Append items in narration order and focus only the current addition."},
+          {"phase": "peak", "instruction": "Resolve all accumulated items into one legible group conclusion."},
+          {"phase": "hold", "instruction": "Freeze or quiet entrances while the completed group is read."},
+          {"phase": "exit", "instruction": "Collapse a shared property into the declared handoff anchor."}
+        ],
+        "adapter_contract": [
+          "Drive additions from development_states rather than equal automatic intervals.",
+          "Preserve Beat position, item identity, and the final consensus state."
+        ]
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "aligned_value_comparison",
+      "shot_language": "aligned_comparison",
+      "visual_actions": ["compare"],
+      "fit": [
+        "Values or entities share a truthful scale, baseline, or categorical alignment."
+      ],
+      "avoid": [
+        "Items are not commensurable or the visual scale would imply unsupported precision."
+      ],
+      "entry": {
+        "goal": "Carry in or establish the baseline that makes the comparison honest.",
+        "consume": ["start_state", "entry_anchor", "data_refs"]
+      },
+      "development": {
+        "goal": "Place comparable items on the same scale and reveal differences in narration order.",
+        "consume": ["development_states", "timed_attention_cues"]
+      },
+      "information_peak": {
+        "goal": "Expose the relevant gap, rank, parity, or outlier without decorative distortion.",
+        "consume": ["information_peak", "attention_target"]
+      },
+      "reading_hold": {
+        "goal": "Keep labels, units, and the shared scale readable after the difference appears.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Preserve the decisive value, gap, or baseline for explanation or judgment.",
+        "consume": ["end_state", "exit_anchor", "continuity_axis"]
+      },
+      "motion_personality": "Measured and axis-led, with alignment carrying more meaning than entrance style.",
+      "motion_budget": {
+        "primary_responsibility": "Reveal comparable differences on one stable scale.",
+        "supporting_policy": "Use at most one emphasis change for the narrated item.",
+        "background_policy": "Keep context subordinate to labels and the comparison axis."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["comparison count", "label density", "qualification readability"]
+      },
+      "pitfalls": [
+        "Using unequal scales",
+        "Sorting items before the narration supports the ranking",
+        "Animating labels while the viewer must compare them"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Establish a truthful baseline and the first comparable item."},
+          {"phase": "development", "instruction": "Add or align remaining items on the same measurement logic."},
+          {"phase": "peak", "instruction": "Focus the exact difference named by the information peak."},
+          {"phase": "hold", "instruction": "Stop axis motion while labels, units, and gaps are inspected."},
+          {"phase": "exit", "instruction": "Keep the decisive item or baseline as the next anchor."}
+        ],
+        "adapter_contract": [
+          "Use source-backed values and preserve units and scale domains.",
+          "Bind emphasis timing to development states and attention cues."
+        ]
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "causal_explanation",
+      "shot_language": "causal_flow",
+      "visual_actions": ["causal"],
+      "fit": [
+        "The source supports an ordered mechanism from upstream factor to downstream outcome."
+      ],
+      "avoid": [
+        "The relationship is only correlated, unordered, or materially uncertain."
+      ],
+      "entry": {
+        "goal": "Establish the upstream condition and direction of explanation.",
+        "consume": ["start_state", "entry_anchor"]
+      },
+      "development": {
+        "goal": "Reveal one supported connection or mechanism state at a time.",
+        "consume": ["development_states", "attention_target"]
+      },
+      "information_peak": {
+        "goal": "Show the completed supported mechanism and its outcome as one coherent path.",
+        "consume": ["information_peak", "information_delta"]
+      },
+      "reading_hold": {
+        "goal": "Protect labels and direction after the full path becomes visible.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Carry the outcome node or direction into the next evidence or judgment shot.",
+        "consume": ["end_state", "exit_anchor", "continuity_axis"]
+      },
+      "motion_personality": "Directional and sequential, with connections appearing only when supported.",
+      "motion_budget": {
+        "primary_responsibility": "Advance attention through the causal path in semantic order.",
+        "supporting_policy": "One secondary emphasis may clarify the active node or link.",
+        "background_policy": "No ambient path or particle motion may imply extra causal links."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["mechanism step count", "label density", "narration cadence"]
+      },
+      "pitfalls": [
+        "Presenting correlation as causation",
+        "Revealing the whole path before its steps are explained",
+        "Adding decorative links that imply unsupported relationships"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Place the upstream condition and establish direction."},
+          {"phase": "development", "instruction": "Reveal supported nodes and links in causal order."},
+          {"phase": "peak", "instruction": "Resolve the mechanism into the declared downstream outcome."},
+          {"phase": "hold", "instruction": "Pause link growth while the complete path is read."},
+          {"phase": "exit", "instruction": "Carry the outcome node or path direction forward."}
+        ],
+        "adapter_contract": [
+          "Create only nodes and connections present in the shot's source-backed state.",
+          "Preserve path order, attention target, and continuity direction."
+        ]
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "verified_data_hero",
+      "shot_language": "data_hero",
+      "visual_actions": ["focus", "conclude"],
+      "fit": [
+        "One verified metric can carry the shot's conclusion when shown with its label, unit, and qualification."
+      ],
+      "avoid": [
+        "The metric lacks provenance, needs a comparison to be meaningful, or hides important uncertainty."
+      ],
+      "entry": {
+        "goal": "Carry the metric from its source, chart, or prior comparison where possible.",
+        "consume": ["start_state", "entry_anchor", "evidence_refs"]
+      },
+      "development": {
+        "goal": "Remove secondary information while preserving label, unit, and direction.",
+        "consume": ["development_states", "attention_target"]
+      },
+      "information_peak": {
+        "goal": "Make the verified metric and its qualified meaning dominant together.",
+        "consume": ["information_peak", "information_delta"]
+      },
+      "reading_hold": {
+        "goal": "Let the full metric, unit, label, and qualification settle after motion ends.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Preserve the metric, color, or scale only when the next shot uses it honestly.",
+        "consume": ["end_state", "exit_anchor", "continuity_axis"]
+      },
+      "motion_personality": "Decisive and sparse, with movement ending before the judgment settles.",
+      "motion_budget": {
+        "primary_responsibility": "Promote one verified metric into the dominant information layer.",
+        "supporting_policy": "Use one contextual cue only when it protects provenance or interpretation.",
+        "background_policy": "Reduce background motion before the metric reaches peak hierarchy."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["metric label length", "qualification density", "narration emphasis"]
+      },
+      "pitfalls": [
+        "Showing a contextless number",
+        "Using scale animation as the conclusion",
+        "Continuing background movement through the reading hold"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Bring the metric in with enough provenance to remain honest."},
+          {"phase": "development", "instruction": "Reduce secondary elements and clarify label, unit, and direction."},
+          {"phase": "peak", "instruction": "Resolve the metric and its qualification at dominant hierarchy."},
+          {"phase": "hold", "instruction": "End primary motion and protect complete metric readability."},
+          {"phase": "exit", "instruction": "Carry a justified metric property into the next shot or stop cleanly."}
+        ],
+        "adapter_contract": [
+          "Bind the displayed value to structured data or exact source text.",
+          "Preserve label, unit, qualification, motion budget, and reading hold."
+        ]
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "evidence_to_conclusion",
+      "shot_language": "conclusion_resolve",
+      "visual_actions": ["conclude"],
+      "fit": [
+        "Several already-established evidence anchors must converge into one qualified judgment."
+      ],
+      "avoid": [
+        "The evidence has not been shown or the narration is still adding independent claims."
+      ],
+      "entry": {
+        "goal": "Bring forward only the evidence anchors needed for the conclusion.",
+        "consume": ["start_state", "entry_anchor", "evidence_refs"]
+      },
+      "development": {
+        "goal": "Reduce competing elements and organize the remaining evidence around one claim.",
+        "consume": ["development_states", "information_delta"]
+      },
+      "information_peak": {
+        "goal": "Make the judgment visibly result from the preceding evidence.",
+        "consume": ["information_peak", "attention_target"]
+      },
+      "reading_hold": {
+        "goal": "Let movement subside so the judgment and qualification can settle.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Leave one conclusion anchor for the next chapter or finish with a deliberate stop.",
+        "consume": ["end_state", "exit_anchor", "continuity_axis"]
+      },
+      "motion_personality": "Convergent and decelerating, with fewer elements at the peak than at entry.",
+      "motion_budget": {
+        "primary_responsibility": "Converge established evidence into one qualified conclusion.",
+        "supporting_policy": "Secondary motion may only clarify which evidence supports the conclusion.",
+        "background_policy": "Quiet or remove background competition as the judgment resolves."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["evidence count", "qualification length", "chapter handoff"]
+      },
+      "pitfalls": [
+        "Introducing new evidence during the conclusion",
+        "Replacing reasoning with a title card",
+        "Leaving motion active after the judgment should settle"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Restore the minimum evidence anchors needed for judgment."},
+          {"phase": "development", "instruction": "Converge those anchors around the qualified claim."},
+          {"phase": "peak", "instruction": "Resolve evidence and conclusion into one legible hierarchy."},
+          {"phase": "hold", "instruction": "Decelerate or stop movement while the judgment settles."},
+          {"phase": "exit", "instruction": "Carry one conclusion anchor forward or end the chapter cleanly."}
+        ],
+        "adapter_contract": [
+          "Do not create evidence that is absent from the shot contract.",
+          "Preserve qualifications and the declared chapter handoff."
+        ]
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "protected_pause",
+      "shot_language": "pause_hold",
+      "visual_actions": ["pause"],
+      "fit": [
+        "A dense peak, exact evidence, or major judgment needs protected reading or cognitive release."
+      ],
+      "avoid": [
+        "Nothing meaningful is present to read, or the pause only fills unused duration."
+      ],
+      "entry": {
+        "goal": "Arrive with the resolved information already legible.",
+        "consume": ["start_state", "entry_anchor", "information_peak"]
+      },
+      "development": {
+        "goal": "Reduce nonessential movement while preserving the declared attention target.",
+        "consume": ["development_states", "motion_budget"]
+      },
+      "information_peak": {
+        "goal": "Use stillness or near-stillness to give the information its intended weight.",
+        "consume": ["information_peak", "attention_target"]
+      },
+      "reading_hold": {
+        "goal": "Derive protected time from the shot's reading requirement and narration cadence.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Release the held anchor gently or clear it for an explained contrast cut.",
+        "consume": ["end_state", "exit_anchor", "continuity_axis", "contrast_reason"]
+      },
+      "motion_personality": "Still or nearly still, treating restraint as an active editorial action.",
+      "motion_budget": {
+        "primary_responsibility": "Protect reading and conclusion weight by reducing motion.",
+        "supporting_policy": "No supporting move is needed unless it preserves continuity unobtrusively.",
+        "background_policy": "Background behavior must not erode the protected hold."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["reading_hold contract", "text density", "narration cadence"]
+      },
+      "pitfalls": [
+        "Treating stillness as missing animation",
+        "Adding ambient motion that competes with reading",
+        "Holding an empty or unresolved frame"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Enter on the already-resolved information state."},
+          {"phase": "development", "instruction": "Reduce remaining nonessential movement."},
+          {"phase": "peak", "instruction": "Keep the declared attention target dominant through restraint."},
+          {"phase": "hold", "instruction": "Maintain protected legibility for the shot-specific requirement."},
+          {"phase": "exit", "instruction": "Release or clear the anchor according to the handoff contract."}
+        ],
+        "adapter_contract": [
+          "Represent pause as a deliberate timeline state rather than omitted implementation.",
+          "Preserve reading hold, attention target, and contrast reason."
+        ]
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "clean_contrast_cut",
+      "shot_language": "clean_cut",
+      "visual_actions": ["turn"],
+      "fit": [
+        "The next frame intentionally replaces the current visual logic to express a contrast, correction, or chapter turn."
+      ],
+      "avoid": [
+        "A meaningful object, scale, direction, or source region should continue across the transition."
+      ],
+      "entry": {
+        "goal": "Complete the outgoing idea without inventing a decorative bridge.",
+        "consume": ["start_state", "contrast_reason"]
+      },
+      "development": {
+        "goal": "Use the editorial discontinuity itself as the transition event.",
+        "consume": ["transition_reason", "continuity_axis"]
+      },
+      "information_peak": {
+        "goal": "Make the new visual premise and its contrast immediately legible.",
+        "consume": ["information_peak", "information_delta"]
+      },
+      "reading_hold": {
+        "goal": "Let the new premise register before further development begins.",
+        "consume": ["reading_hold"]
+      },
+      "exit": {
+        "goal": "Establish an anchor inside the new visual logic for subsequent continuity.",
+        "consume": ["end_state", "exit_anchor"]
+      },
+      "motion_personality": "Direct and discontinuous; no transition effect is required to justify the cut.",
+      "motion_budget": {
+        "primary_responsibility": "Express the editorial turn through contrast between stable states.",
+        "supporting_policy": "Do not add a transition effect unless it communicates the same contrast.",
+        "background_policy": "Clear competing carryover from the outgoing visual logic."
+      },
+      "duration_guidance": {
+        "fixed_seconds": false,
+        "derive_from": ["contrast legibility", "new-premise reading load", "narration turn"]
+      },
+      "pitfalls": [
+        "Using a hard cut without a contrast reason",
+        "Cutting away from an anchor that should continue",
+        "Adding a dissolve merely to conceal an unresolved handoff"
+      ],
+      "reference_implementation": {
+        "kind": "state_timeline",
+        "steps": [
+          {"phase": "entry", "instruction": "Finish the outgoing stable state and its idea."},
+          {"phase": "development", "instruction": "Replace it at the declared editorial turn with no invented bridge."},
+          {"phase": "peak", "instruction": "Present the contrasting new premise at immediate hierarchy."},
+          {"phase": "hold", "instruction": "Give the new premise enough protected registration time."},
+          {"phase": "exit", "instruction": "Create a new anchor for continuity inside the changed visual logic."}
+        ],
+        "adapter_contract": [
+          "Require continuity_axis none and a non-empty contrast_reason for interior cuts.",
+          "Preserve outgoing and incoming stable states without decorative interpolation."
+        ]
+      },
+      "renderer_neutral": true
+    }
+  ]
+}
