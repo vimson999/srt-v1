@@ -496,9 +496,16 @@ Assert that each required visual_action has at least one language family, each f
 
 Use YAML-like Markdown-safe data with stable names and concise fields; keep the semantic action as the selection input and make the selected language explainable in the shot record.
 
-- [ ] **Step 3: Verify and commit Phase 2**
+- [x] **Step 3: Verify and commit Phase 2**
 
 Run the new policy test and the complete Phase 1 suite, inspect git diff --check, commit with feat: add semantic shot language registry, and push the same branch.
+
+Verification on 2026-09-10: all nine repository test scripts passed, the
+storyboard template passed `scripts/validate_storyboard.py`, and the staged
+diff passed `git diff --check`. The bundled `skill-creator` quick validator
+could not import its unavailable `PyYAML` dependency in either available Python
+runtime; an equivalent YAML-frontmatter contract check passed without adding a
+project dependency.
 
 ### Task 7: Phase 3 — Add renderer-agnostic Shot Recipes
 
