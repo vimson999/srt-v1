@@ -651,7 +651,7 @@ behavior, contract, and validation scripts passed. The merged
 `templates/storyboard.jsonl` also passed `python3 -m json.tool` and
 `scripts/validate_storyboard.py` with one valid shot.
 
-- [ ] **Step 2: Run repository hygiene checks**
+- [x] **Step 2: Run repository hygiene checks**
 
 ~~~
 git diff --check
@@ -661,13 +661,20 @@ git log --oneline --decorate -12
 
 Expected: the branch is clean after the final commit and all commits are on feat/v2-director-contract.
 
-- [ ] **Step 3: Push and report the GitHub branch**
+Verification on 2026-09-10: the post-merge feature branch was clean; its log
+contained all Phase 1–5 commits plus merge commit `9a87438`, with no unresolved
+paths and no whitespace errors.
+
+- [x] **Step 3: Push and report the GitHub branch**
 
 ~~~
 git push -u origin feat/v2-director-contract
 ~~~
 
 Report the branch name, commit list, verification commands and results, and any limitation such as the inability to create a PR automatically. Do not claim completion until the fresh verification output and Git status support it.
+
+Verification on 2026-09-10: `feat/v2-director-contract` was pushed to GitHub
+through `fafc116` before main integration.
 
 ### Task 11: Merge the verified V2 branch into main and push
 
