@@ -22,6 +22,7 @@ with tempfile.TemporaryDirectory() as td:
         project / 'input' / 'script.txt',
         project / 'project.json',
         project / 'storyboard',
+        project / 'data' / 'motion_cues.json',
         root / 'report-video' / 'asset-library' / 'raw' / 'video',
         root / 'report-video' / 'asset-library' / 'processed' / 'thumbnails',
         root / 'report-video' / 'asset-library' / 'catalog',
@@ -57,6 +58,10 @@ with tempfile.TemporaryDirectory() as td:
         raise SystemExit('FAIL director summary initialization')
     if project_json.get('storyboard_contract', {}).get('path') != 'storyboard/storyboard.jsonl':
         raise SystemExit('FAIL storyboard contract pointer')
+
+    motion_cues = json.loads((project / 'data' / 'motion_cues.json').read_text(encoding='utf-8'))
+    if motion_cues != {'schema_version': 1, 'cues': []}:
+        raise SystemExit('FAIL motion cue placeholder contract')
 
     metadata = json.loads(
         (root / 'report-video' / 'asset-library' / 'catalog' / 'metadata.json').read_text(

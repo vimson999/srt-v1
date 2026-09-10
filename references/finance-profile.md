@@ -39,11 +39,18 @@ the report visual.
 
 ## Background coverage and material planning
 
-For a finance video podcast with visible contextual footage, use 90% video-layer
-coverage as the default target unless the user chooses another ratio. This is
-the percentage of composition frames containing a valid background-video layer,
-not the percentage of unique source footage. Pure data and exact evidence
-holdouts are allowed when readability or source fidelity requires them.
+For a finance video podcast with visible contextual footage, 90% video-layer
+coverage may remain a configurable diagnostic unless the user chooses another
+ratio. It is the percentage of composition frames containing a valid
+background-video layer, not the percentage of unique source footage and not a
+director success criterion. Pure data and exact evidence holdouts are expected
+when readability or source fidelity requires them.
+
+Use three responsibility levels when planning a beat:
+
+- context, atmosphere, or industry setting: broad semantic B-roll can be enough;
+- mechanism, trend, causal chain, or capital/process flow: add structured foreground explanation;
+- exact number, rating, target, valuation, or report conclusion: use readable evidence or structured data.
 
 Report both coverage and material sufficiency:
 
@@ -80,7 +87,13 @@ context-led moments. Verify both a still frame and a moving preview.
 
 Avoid 10 minutes of the same left-side translucent card. Vary composition within one system: left/right panel, centered metric, horizontal flow, bottom data band, full-screen number, report paper, split comparison, three-column institution view.
 
-Avoid 10 minutes of the same left-side translucent card. Vary composition within one system: left/right panel, centered metric, horizontal flow, bottom data band, full-screen number, report paper, split comparison, three-column institution view.
+Judge background salience after the complete composite, not from asset opacity
+or coverage alone. In representative review, include the brightest evidence
+shot and a context-led shot. First confirm that the evidence hierarchy and
+captions read immediately; then confirm that the background remains perceptible.
+Tune exposure/brightness, contrast, saturation, blur, `asset_opacity`, and
+`overlay_alpha` according to the footage instead of enforcing one universal
+numeric grade.
 
 ## Evidence rules
 
@@ -101,6 +114,28 @@ Context B-roll may be approximate when it does not imply that the footage is the
 When narration enters an institution section, prefer the authentic report cover/page as a background treatment: dim, slow push, gentle drift, optional blur. Foreground extracts the exact institution, target price, valuation method, and thesis.
 
 Never fabricate a lookalike report page and present it as an authentic source.
+
+### Named-source roll call
+
+When narration names several institutions or reports in sequence, treat the
+sequence as a credibility beat:
+
+1. Put authentic report pages or other verified source identity in the
+   foreground; keep contextual B-roll visibly subordinate.
+2. Activate the corresponding report/card/row with a timed attention cue as
+   each name is spoken. Preserve the other sources as context rather than
+   repeatedly replacing the whole layout without a reason.
+3. Use the authentic report header as identity evidence. Add a separate logo
+   only when an authentic, permitted asset is available and it materially
+   improves recognition; a logo is not mandatory when the source page already
+   identifies the institution.
+4. Keep screen copy audience-facing: institution name, report date/title,
+   rating, target, or the narrated consensus. Do not displace the evidence with
+   generic production-process copy.
+
+Low resolution may affect crop and text size, but it does not disqualify the
+authentic report as evidence backing. Extract exact claims from verified text or
+structured data when the pixels are unreadable.
 
 ## Finance visual modes
 

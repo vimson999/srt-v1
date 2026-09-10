@@ -44,6 +44,7 @@ projects/<project_id>/
     financials.json
     charts.json
     institutions.json
+    motion_cues.json
   manifest/
     assets_required.csv
     assets.json
@@ -76,17 +77,38 @@ Inspect available inputs and resume from the furthest completed phase:
 
 Do not make the user repeat work already present.
 
-## Phase 1 — Direct from SRT
+## Phase 1 — Narrative map, chapter arcs, and visual beats
+
+Do not convert SRT entries directly into a rotating list of visual modes. First
+make the argument legible, then choose how to stage it.
 
 1. Parse total duration, subtitle count, sections, topic shifts, data-heavy passages, arguments, risks, comparisons, and conclusions.
-2. Merge subtitles into semantic visual units. Typical range: 5–15s. Openers may be 2–5s; complex explainers may be 10–20s.
-3. Build the Beat progression inside existing Visual Beats and assign each shot a Beat position and role (`establish`, `develop`, `emphasize`, `resolve`, or `bridge`). Do not create a separate Shot Group layer.
-4. For each shot, write the information state: `start_state` → ordered `development_states` → `information_peak` → optional protected `reading_hold` → `end_state`, with `information_delta` explaining the change in understanding.
-5. Choose one primary semantic action (`visual_action`) such as `verify`, `accumulate`, `causal`, `compare`, `conclude`, or `pause`; record a `motion_budget` with one primary motion responsibility, at most one supporting responsibility, and an ambient background policy.
-6. Retrieve compatible families from `templates/shot-language.yaml`, select one against the information lifecycle and handoff, and record `shot_language.family` plus a shot-specific `selection_reason`. Do not select by effect novelty or layout quotas.
-7. When a matching canonical recipe exists in `templates/shot-recipe.json`, select it as the renderer-neutral implementation plan. Record a recipe gap instead of changing the action or forcing an unrelated recipe.
-8. Write the attention handoff: why the transition happens, what `exit_anchor` remains, what `entry_anchor` is inherited, which `continuity_axis` carries attention, or why a deliberate contrast cut needs `contrast_reason`.
-9. Assign each unit a visual mode:
+2. Merge subtitles into semantic source units. Typical range: 5–15s. Openers may be 2–5s; complex explainers may be 10–20s. A subtitle boundary is not automatically a shot boundary.
+3. Create `narrative_map.json` with the major questions, claims, evidence, turns, risks, conclusions, and source-status requirements.
+4. Create `chapter_arcs.json` describing each chapter's opening question, development, turn, closing takeaway, dominant visual grammar, and anti-patterns.
+5. Create `visual_beats.jsonl`. For every beat, state:
+   - `start_state`: what the viewer sees or understands on entry;
+   - `information_delta`: what this beat adds, changes, compares, or resolves;
+   - `end_state`: what the viewer should understand on exit;
+   - `shot_function`: context, claim, evidence, explanation, comparison, transition, pause, or conclusion;
+   - `visual_responsibility`: context, structured explanation, exact evidence, or mixed;
+   - `cut_reason`: why this beat begins, ends, or changes.
+6. Expand beats into execution shots only when a new layout, asset, information state, or attention target is needed. A single shot may contain several visual states; several shots may serve one beat.
+7. Build the Beat progression inside existing Visual Beats and assign each shot a Beat position and role (`establish`, `develop`, `emphasize`, `resolve`, or `bridge`). Do not create a separate Shot Group layer.
+8. For each shot, write the information state: `start_state` → ordered `development_states` → `information_peak` → optional protected `reading_hold` → `end_state`, with `information_delta` explaining the change in understanding.
+9. Choose one primary semantic action (`visual_action`) such as `verify`, `accumulate`, `causal`, `compare`, `conclude`, or `pause`; record a `motion_budget` with one primary motion responsibility, at most one supporting responsibility, and an ambient background policy.
+10. Retrieve compatible families from `templates/shot-language.yaml`, select one against the information lifecycle and handoff, and record `shot_language.family` plus a shot-specific `selection_reason`. Do not select by effect novelty or layout quotas.
+11. When a matching canonical recipe exists in `templates/shot-recipe.json`, select it as the renderer-neutral implementation plan. Record a recipe gap instead of changing the action or forcing an unrelated recipe.
+12. Write the attention handoff: why the transition happens, what `exit_anchor` remains, what `entry_anchor` is inherited, which `continuity_axis` carries attention, or why a deliberate contrast cut needs `contrast_reason`.
+13. When attention changes inside one shot, create timed attention cues that map
+   SRT-derived spoken windows to stable visible target IDs. If the user approves
+   one cue behavior as an example and asks for the same judgment throughout,
+   scan all beats and shots for analogous names, metrics, report facts, chart
+   nodes, flow steps, risks, and conclusions. Generalize the decision rule
+   without forcing motion onto unrelated holds. Record `attention_cue_ref=null`
+   plus the existing motion reason for stable shots so scan completion cannot be
+   confused with cue coverage.
+14. Assign each unit a visual mode:
    - `BROLL_OVERLAY`
    - `REPORT_EVIDENCE`
    - `DATA_HERO`
@@ -98,13 +120,17 @@ Do not make the user repeat work already present.
    - `RISK_MATRIX`
    - `TIMELINE`
    - `MAP`
-10. Produce canonical `storyboard/storyboard.jsonl`, the compact `storyboard/storyboard.csv` projection, and a concise director summary. Run `scripts/validate_storyboard.py` before handing the storyboard to a renderer.
-11. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
+15. Produce canonical `storyboard/storyboard.jsonl`, the compact `storyboard/storyboard.csv` compatibility projection, and a concise director summary. Run `scripts/validate_storyboard.py` before handing the storyboard to a renderer.
+16. Identify terminology that needs confirmation. Do not put uncertain ASR text on screen.
 
 The Phase 1 middle layer describes information and attention flow; it does not
 replace Evidence records, Timed Attention Cues, Render Review, or Render
 Reliability checks. Those remain the source and QA gates for exact claims,
 timing, pixels, and export behavior.
+
+For short, simple pieces the artifacts may be compact, but the same fields still
+need to be represented. The director summary should report the narrative,
+chapter, beat, and shot counts—not only a visual-mode mix.
 
 ## Phase 2 — Asset planning
 
@@ -130,6 +156,11 @@ against the reviewed shared catalog, metadata sidecar, and usage history. Keep
 preview eligibility separate from publication clearance, preserve prohibited
 interpretations and resolution warnings, and write only genuine gaps after
 honest fallback and varied reuse options are exhausted.
+
+Bind assets to the visual responsibility of the beat or shot. A context clip is
+not evidence merely because its filename contains the right noun. When one
+evidence asset can satisfy a beat, continuation shots may use context or a
+programmatic visual without inventing duplicate evidence requirements.
 
 The procurement response must end with one concrete handoff sentence, for
 example: “把以上文件放入 `asset-library/inbox/<project_id>/`，然后告诉我
@@ -166,19 +197,41 @@ completion notice:
 
 1. Build `timeline.json` from SRT timing and storyboard units.
 2. Preserve original source time and local composition time when rendering excerpts.
-3. Avoid black gaps: a visual unit may extend through small speech pauses until the next unit begins.
-4. Data claims must resolve to structured data or exact source text; do not hardcode facts inside animation components when a data file exists.
-5. Calculate and record video-background coverage separately from unique footage
-   duration and reuse. A 90% coverage target is not permission to use an
-   identical immediate loop conspicuously; it is also not a reason to block a
-   full-length composition when varied reuse is acceptable.
-6. Validate shot continuity, asset refs, chart refs, data refs, media paths,
+3. Build `data/motion_cues.json` for shots with in-shot attention changes.
+   Validate cue windows against shot ranges and ensure every `target_id`
+   resolves before renderer handoff.
+4. Avoid black gaps: a visual unit may extend through small speech pauses until the next unit begins.
+5. Data claims must resolve to structured data or exact source text; do not hardcode facts inside animation components when a data file exists.
+6. Calculate and record video-background coverage separately from unique footage
+   duration and reuse. A configured 90% coverage diagnostic is not permission
+   to use an identical immediate loop conspicuously; it is also not a reason to
+   block a full-length composition when varied reuse is acceptable.
+7. Validate shot continuity, asset refs, chart refs, data refs, cue refs, media paths,
    subtitle timing, asset-library paths, background visibility, and project
-   status before handoff.
-7. Run `scripts/review_sequence.py` on the ordered storyboard. Resolve
+   status before handoff. Treat any coverage percentage as a diagnostic rather
+   than a substitute for the visual-responsibility and review gates.
+8. Run `scripts/review_sequence.py` on the ordered storyboard. Resolve
    structural and reference errors; inspect repetition, cognitive-release,
    motion-balance, and energy-curve warnings without treating them as automatic
    aesthetic failures.
+
+### Plan review and render review
+
+Before production handoff, run two distinct reviews:
+
+1. **Plan review** — inspect the narrative map, chapter arcs, beat transitions,
+   shot functions, information deltas, asset responsibilities, and source gates.
+   Record `plan_score` and hard-gate failures without pretending that a filled
+   table proves visual quality.
+2. **Representative render review** — render a 30–90s representative section
+   or the smallest section that exercises the visual system. For key shots inspect
+   entry, information-peak, and exit states. For important transitions inspect a
+   2–4s motion sample. For multi-target shots, inspect at least two cue
+   activations and the handoff between them. Record `render_score` separately
+   from `plan_score`.
+3. **Full-film review** — after the representative section is accepted, inspect
+   low-resolution full-film rhythm and chapter continuity, then render the final
+   export. A background-coverage percentage cannot replace this review.
 
 ## Phase 5 — Production handoff
 

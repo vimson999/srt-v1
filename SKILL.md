@@ -7,7 +7,33 @@ description: Use when a user provides an SRT, timed narration, or finalized voic
 
 ## Core principle
 
-Turn timed narration into a visual system, not a slideshow. **Evidence in the foreground; context in the background.** Exact claims, numbers, institutions, report facts, and labels must be accurate; background B-roll only needs to be semantically appropriate and non-misleading. For recurring production, keep the visual director's source contracts in the project while managing reusable media in one shared asset library beside `projects/`.
+Turn timed narration into a visual argument, not a slideshow. **Evidence in the foreground; context in the background.** Exact claims, numbers, institutions, report facts, and labels must be accurate; background B-roll only needs to be semantically appropriate and non-misleading.
+
+For any non-trivial SRT project, do not jump directly from subtitle units to a visual mode. Pass through a renderer-agnostic director middle layer:
+
+1. **Narrative map** — claims, evidence, questions, turns, risks, and conclusions, including how they relate.
+2. **Chapter arcs and visual beats** — what the viewer should understand at the start and end of each beat, and what information changes.
+3. **Execution shots** — timecodes, visual grammar, assets, layout, motion, captions, and transitions.
+
+The resulting flow is:
+
+`SRT → narrative map → chapter arcs → visual beats → execution shots → assets → plan review → representative render review → full render`
+
+Keep these source contracts in the project while managing reusable media in one shared asset library beside `projects/`.
+
+### Visual responsibility
+
+Use the least specific visual that can honestly perform the job, but no less specific than the claim requires:
+
+- **Context / atmosphere / place** — semantically related B-roll may be sufficient.
+- **Mechanism / trend / cause / flow** — B-roll may establish context, but the structured foreground must add an explanation such as a flow, chart, comparison, or labeled process.
+- **Numbers / ratings / targets / report conclusions** — use readable evidence or structured data. B-roll cannot substitute for the exact claim.
+
+Background coverage is a technical statistic, not the director's success criterion. A valid video layer does not prove that the visual argument is complete.
+
+### Beat and shot distinction
+
+A **visual beat** is a unit of viewer understanding; a **shot** is an executable visual interval. One beat may contain one shot or several states inside one shot. Every beat should expose `start_state`, `information_delta`, and `end_state`. Every shot should explain its `shot_function` and `cut_reason`. A static hold is valid when it protects reading time or gives a conclusion weight; motion is not progress by itself.
 
 ## Scope boundary
 
@@ -59,12 +85,16 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - For a recurring video factory, initialize or reuse `<factory_root>/asset-library/` beside `projects/`. Projects reference stable `asset_id` values; they do not copy shared media into every project.
 - Give each project one drop zone at `asset-library/inbox/<project_id>/`. The user supplies files there and reports “素材已准备好，继续”; catalog maintenance is agent-owned.
 - Keep generated inventory in `catalog/assets.json`, durable reviewed descriptions in `catalog/metadata.json`, usage in `catalog/usage.json`, and unresolved review work in `catalog/review_queue.json`.
-- For the high-background finance-podcast profile, target video-layer coverage of 90% of composition frames unless the user opts out. Coverage is measured separately from unique source duration and background visibility; never use an identical immediate loop merely to satisfy the percentage.
+- For the high-background finance-podcast profile, treat 90% video-layer coverage as a configurable diagnostic inherited from the profile, never as a director goal, quality score, or pass condition. Keep evidence and readable data on screen when they need a holdout from background video.
 - Treat background coverage and perceived background visibility as separate acceptance checks. Coverage counts frames with a valid video layer; visibility is the result after the asset opacity and every dark gradient, mask, or overlay are composited.
+- Treat background salience as a separate visual gate: a technically visible background still fails when its highlights, motion, or local contrast compete with evidence, numbers, or captions.
 - For a high-background finance profile, expose two independent controls in the design handoff: `asset_opacity` and `overlay_alpha`. If the user asks for a more visible background, adjust both and preview representative context and evidence shots. A useful starting preset is `0.42–0.50` for the asset layer (ordinary context around `0.46`, evidence around `0.50`), while reducing overly opaque masks. These are tunable profile defaults, not universal aesthetic requirements.
 - Before storyboarding a long piece, estimate usable source duration and alternates. As a planning heuristic, a 2.5-minute test needs about 4–8 minutes of usable footage across 4–6 semantic categories; a 10-minute-plus program usually needs about 20–30 minutes. Adjust for the requested repetition tolerance.
 - Before any renderer export, read `references/render-reliability.md`, run a preflight and a representative smoke render, and choose a resumable render plan proportional to duration and scene complexity.
 - Before renderer handoff, validate `storyboard/storyboard.jsonl` with `scripts/validate_storyboard.py`; keep intentional hard cuts explicit with `continuity_axis=none` and a meaningful `contrast_reason`.
+- Before scaling a new visual system to a full piece, review the plan and render a representative 30–90s section. Keep `plan_score` (design review) separate from `render_score` (actual frame/motion review).
+- When narration changes the attention target inside one shot, create timed attention cues that map the spoken window to a stable visible target. If the user approves one such behavior as an example and asks for the same judgment throughout, scan the complete plan for analogous names, metrics, report facts, chart nodes, flow steps, risks, and conclusions. Apply the pattern where the attention condition recurs; do not animate unrelated shots mechanically.
+- Complete scan coverage is not cue coverage. Record the decision across the full plan, but let shots without a narrated attention-target change stay uncued; never use “every shot has motion” as evidence that the generalization is complete.
 - For long or failure-prone renders, prefer checkpointed frame segments, adaptive concurrency, and one final audio mux over one-shot rendering. Reuse valid segments after a retry; never restart the whole export merely because one segment failed.
 - Deliver progressively. Do not overwhelm the user with every downstream step at once.
 
@@ -100,6 +130,9 @@ For catalog retrieval, candidate ranking, or reuse planning, also read
 
 For finance / research-report content, also read `references/finance-profile.md`.
 
+For any non-trivial visual plan, also read `references/visual-direction.md` and
+`references/visual-quality-review.md`.
+
 When real media must be sourced, read `references/asset-procurement.md`.
 
 When a shared media library is available or should be created, read `references/asset-library.md`.
@@ -115,6 +148,13 @@ For SRT-only new projects, use `scripts/init_project.py` or reproduce its contra
 ## Non-negotiables
 
 - Never fabricate a report page, source screenshot, company facility, or exact event and present it as real.
+- Never assign a visual mode directly from a subtitle unit before the narrative map, chapter arc, and visual beat have been resolved.
+- Every beat must state what changes in viewer understanding; `motion_arc` alone is not an information plan.
+- On-screen explanatory copy must be audience-facing and supported by the narration or evidence. Internal production rationale, workflow labels, and prompts are not substitutes for source evidence.
+- Repetition is acceptable when it has a continuity reason; variation is required when it has a change reason. Do not rotate templates mechanically.
+- Background B-roll may support context, but it may not be the sole explanation of a mechanism, causal relationship, trend, financial number, rating, target, or report conclusion.
+- Review hard gates separately from function-weighted soft scores. At minimum, check truthfulness, source status, readability, subtitle safe zone, valid references, and technical executability.
+- Review a key shot at entry, information peak, and exit; review important transitions dynamically before approving the full render.
 - Real report covers/pages may be used as evidence backgrounds; fabricated lookalike reports may not.
 - Programmatic visuals are preferred for data, comparisons, valuation, flows, timelines, risk matrices, and exact quantitative claims.
 - Context B-roll may be reused with different trims/crops/scale/speed/overlay treatment, but avoid conspicuous immediate repetition.

@@ -6,6 +6,11 @@ The visual-director output is renderer-agnostic. Remotion, HyperFrames, Premiere
 
 Do not let the renderer redesign source-of-truth data unless an explicit error is found.
 
+The renderer is selected after the narrative map, visual beats, execution shots,
+and representative review are valid. HyperFrames and Remotion are execution
+choices, not substitutes for visual direction. To compare renderers, keep the
+same approved shot plan, assets, timing, and data on both sides.
+
 ## V2 shot contract handoff
 
 The renderer consumes `storyboard/storyboard.jsonl` as the canonical Phase 1
@@ -72,9 +77,12 @@ Any rendered review or final video burns subtitles in by default unless the user
 ## First render strategy
 
 1. Validate all JSON and media refs.
-2. Render a representative 30–90s section first if the visual system is unproven.
-3. After approval, scale the same design system to the full timeline.
-4. Use preview quality first (e.g. 720p) for full-length V1; render final 1080p after review.
+2. Complete plan review, then render a representative 30–90s section first if the visual system is unproven.
+3. Inspect entry, peak, and exit states plus important 2–4s transitions. For
+   multi-target shots, inspect at least two timed cue activations and their
+   handoff; record render review separately from plan review.
+4. After approval, scale the same design system to the full timeline.
+5. Use preview quality first (e.g. 720p) for full-length V1; render final 1080p after review.
 
 For high-background finance programs, include a coverage report in the handoff:
 target coverage, measured coverage, unique usable footage seconds, semantic

@@ -39,19 +39,65 @@ Initialization may create valid empty JSON objects/arrays for later contracts, b
 
 ## Phase 1
 
-### `storyboard/storyboard.jsonl`
+### Director middle-layer contracts
 
-This is the canonical rich storyboard contract. Each non-empty line is one
-executable shot record. Keep existing timing/editorial fields and add the V2
-directing fields below; do not create a parallel Shot Group contract.
+For a non-trivial project, these contracts are the source of truth between SRT
+parsing and renderer execution. JSONL records are one object per line.
 
-Required legacy fields:
+#### `narrative_map.json`
 
-`shot_id,start,end,chapter,narration_focus,visual_mode,visual_design,on_screen_text,motion,asset_need`
+Required top-level fields:
 
-Required V2 fields:
+`schema_version,project_id,timing_source,source_status,segments`
 
-`schema_version,beat_id,beat_position,role_in_beat,start_state,development_states,information_peak,reading_hold,information_delta,end_state,attention_target,motion_arc,motion_reason,visual_action,motion_budget,transition_reason,exit_anchor,entry_anchor,continuity_axis,contrast_reason`
+Each `segments` item should include:
+
+`segment_id,source_start,source_end,question,claim_chain,evidence_policy,background_policy,turn,conclusion`
+
+`claim_chain` records the claims and their relationships, for example
+`supports`, `contrasts`, `qualifies`, `causes`, `risks`, or `concludes`. Keep
+exact values and source requirements in the segment or its linked data contract;
+do not hide them in a prose note.
+
+#### `chapter_arcs.json`
+
+Required top-level fields:
+
+`schema_version,project_id,arcs`
+
+Each arc should include:
+
+`chapter_id,segment_ids,opening_question,development,turn,closing_takeaway,dominant_visual_grammar,anti_patterns,source_gate`
+
+#### `visual_beats.jsonl`
+
+Required fields:
+
+`beat_id,chapter_id,source_start,source_end,shot_ids,shot_function,start_state,information_delta,end_state,attention_target,visual_responsibility,background_role,cut_reason,source_status`
+
+Use `background_role=none_required|context_only|evidence_backing` and keep it
+separate from the measured video-layer coverage.
+
+#### `storyboard/storyboard.jsonl`
+
+This is the canonical rich, renderer-agnostic execution contract. Each
+non-empty line is one shot. It extends the existing Narrative Map and Visual
+Beat layers; it does not create a parallel Shot Group layer.
+
+Required editorial, timing, and review fields:
+
+`shot_id,beat_id,beat_ids,beat_position,role_in_beat,chapter,chapter_id,start,end,source_start,source_end,local_start,local_end,narration_focus,shot_function,claim_type,visual_mode,visual_grammar,visual_design,programmatic_visual,assets,asset_role,on_screen_text,motion,asset_need,caption_policy,source_status,plan_score,render_score,status`
+
+Required V2 directing fields:
+
+`schema_version,start_state,development_states,information_peak,reading_hold,information_delta,end_state,attention_target,motion_arc,motion_reason,visual_action,motion_budget,transition_reason,cut_reason,transition_out,exit_anchor,entry_anchor,continuity_axis,contrast_reason`
+
+`beat_id` is the shot's primary Beat and must also appear in `beat_ids`, which
+supports an intentional multi-Beat bridge. `start`/`end` remain the legacy
+seconds projection; `source_start`/`source_end` preserve source time and
+`local_start`/`local_end` preserve composition time. Likewise,
+`transition_reason` is the V2 attention-handoff reason while `cut_reason` and
+`transition_out` preserve the established editorial and downstream fields.
 
 `role_in_beat` is one of `establish,develop,emphasize,resolve,bridge`.
 `visual_action` is one of `establish,focus,compare,accumulate,causal,verify,turn,conclude,pause`.
@@ -67,17 +113,33 @@ not a global fixed rule.
 `position,direction,color,shape,scale,data_scale,none`. An interior
 `continuity_axis=none` requires a non-empty `contrast_reason`.
 
+`plan_score` and `render_score` begin as `null` until their respective reviews.
+`assets` must identify stable asset IDs or explicit programmatic/data refs, not
+only filenames. `status` should distinguish planned, reviewed, approved, and
+needs_revision.
+
 Validate the JSONL with `scripts/validate_storyboard.py`. The validator checks
 contract shape and sequence continuity; it does not replace Evidence, Timed
 Attention Cue, Render Review, or Render Reliability review.
 
-### `storyboard.csv`
+#### `shot_review.jsonl`
+
+Required fields:
+
+`shot_id,beat_id,hard_gate_status,source_gate,plan_score,render_score,plan_notes,render_notes,review_status,revision_id`
+
+This contract records review evidence; it does not replace the shot plan.
+
+### `storyboard/storyboard.csv`
 
 This is a compact, human-readable compatibility projection of the JSONL
-contract. It must not encode nested state arrays or anchors as a second source
-of truth. Required columns:
+contract. Required columns:
 
 `shot_id,start,end,beat_id,beat_position,role_in_beat,chapter,narration_focus,visual_mode,visual_action,visual_design,on_screen_text,motion,motion_budget,asset_need,transition_reason,continuity_axis`
+
+The CSV must not encode nested state arrays or anchors as a second source of
+truth. It is not a substitute for the narrative map, chapter arcs, visual
+beats, or JSONL execution contract; keep `shot_id` stable for downstream joins.
 
 ### `director_summary.md`
 
@@ -167,7 +229,7 @@ incomplete records are surfaced in `catalog/review_queue.json`.
 
 Recommended fields:
 
-`shot_id,start,end,visual_type,generated_visual,primary_asset,secondary_assets,fallback_assets`
+`shot_id,beat_id,start,end,visual_type,generated_visual,primary_asset,secondary_assets,fallback_assets,asset_role,source_status`
 
 ### `missing_assets.json`
 
@@ -223,13 +285,36 @@ verification.
 
 Each shot should include:
 
-`shot_id,source_start,source_end,local_start,local_end,duration,visual_type,visual_id,chart_ref,data_ref,primary_asset,secondary_assets,transition_out`
+`shot_id,beat_id,source_start,source_end,local_start,local_end,duration,shot_function,visual_type,visual_id,chart_ref,data_ref,attention_cue_ref,primary_asset,secondary_assets,transition_out`
 
 For excerpts, preserve both source time and local composition time.
+
+### `motion_cues.json`
+
+Use this sidecar when one or more shots change attention target without a cut.
+An empty project contract is:
+
+```json
+{"schema_version": 1, "cues": []}
+```
+
+Each cue should include:
+
+`cue_id,shot_id,source_start,source_end,local_start,local_end,spoken_trigger,target_id,emphasis,inactive_behavior`
+
+`source_start/source_end` are derived from the SRT timing authority.
+`local_start/local_end` preserve excerpt offsets. `target_id` must resolve to
+one visible renderer element. Cue windows must stay inside their shot, use
+integer-frame rounding only at renderer handoff, and avoid unintended overlap
+between mutually exclusive targets.
 
 ## Design artifact
 
 When production is imminent, produce `DESIGN.md` defining canvas, typography, spacing, safe area, number hierarchy, card/overlay treatment, chart style, motion rules, subtitle safe zone, transitions, and anti-patterns. For high-background profiles, also record `asset_opacity`, `overlay_alpha`, the representative shots used for the visibility check, and any mobile-legibility decision. These fields make background visibility reproducible instead of treating it as an untracked visual impression.
+
+When `motion_cues.json` is used, `DESIGN.md` should also define the attention
+language: target emphasis, inactive-peer behavior, enter/hold/settle timing, and
+the representative cue transitions used for review.
 
 ### Coverage report
 
