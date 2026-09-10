@@ -628,7 +628,7 @@ the staged diff passed `git diff --check`.
 - Consumes: the complete V2 branch and its full regression suite.
 - Produces: verified branch state and a GitHub handoff for review.
 
-- [ ] **Step 1: Run the complete project test command**
+- [x] **Step 1: Run the complete project test command**
 
 Run the repository's full available suite:
 
@@ -636,6 +636,7 @@ Run the repository's full available suite:
 for test in tests/test_init_project.py tests/test_reuse_policy.py \\
   tests/test_render_reliability_policy.py tests/test_asset_acceptance_policy.py \\
   tests/test_asset_intake.py tests/test_storyboard_contract.py \\
+  tests/test_attention_cue_policy.py tests/test_director_policy.py \\
   tests/test_v2_policy.py tests/test_shot_language_policy.py \\
   tests/test_shot_recipe_policy.py tests/test_sequence_review.py \\
   tests/test_asset_reuse_planning.py tests/validate_skill.py; do
@@ -644,6 +645,11 @@ done
 ~~~
 
 Expected: every command exits 0 with no traceback.
+
+Verification on 2026-09-10 after merging `origin/main`: all fourteen policy,
+behavior, contract, and validation scripts passed. The merged
+`templates/storyboard.jsonl` also passed `python3 -m json.tool` and
+`scripts/validate_storyboard.py` with one valid shot.
 
 - [ ] **Step 2: Run repository hygiene checks**
 
@@ -676,10 +682,16 @@ Report the branch name, commit list, verification commands and results, and any 
 - Produces: remote `main` containing the complete V2 upgrade with no omitted
   commits or unverified post-merge state.
 
-- [ ] **Step 1: Refresh remote refs and verify merge ancestry**
+- [x] **Step 1: Refresh remote refs and verify merge ancestry**
 
 Fetch `origin`, confirm the feature branch contains the intended commits, and
 inspect `origin/main...feat/v2-director-contract` before changing main.
+
+Verification on 2026-09-10: `origin/main` had advanced by two commits adding
+the Narrative Map / Visual Beat director contracts and Timed Attention / Render
+Review reliability contracts. They were merged into the feature branch as
+commit `9a87438`; the additive conflicts were resolved by preserving both the
+existing upper-layer contracts and the V2 shot-directing middle layer.
 
 - [ ] **Step 2: Merge without rewriting history**
 
@@ -689,6 +701,6 @@ permits, and do not force-push.
 
 - [ ] **Step 3: Re-run the complete suite on merged main and push**
 
-Run the same twelve-script suite and repository hygiene checks on merged main,
+Run the same fourteen-script suite and repository hygiene checks on merged main,
 then push `main` to `origin`. Verify local main, remote main, and the feature
 tip resolve to the intended commit graph before marking the goal complete.
