@@ -534,9 +534,16 @@ Create policy tests that reject a recipe missing lifecycle phases or a reference
 
 Document only evidence verification, sequential accumulation, aligned comparison, causal explanation, data hero, conclusion/pause, and clean hard-cut recipes. Do not copy a large card inventory or add 3D/particle effects as a diversity requirement.
 
-- [ ] **Step 3: Verify and commit Phase 3**
+- [x] **Step 3: Verify and commit Phase 3**
 
 Run all policy and contract tests, review the recipes for semantic fit, commit with feat: add renderer-agnostic shot recipes, and push.
+
+Verification on 2026-09-10: all ten available repository test scripts passed;
+the recipe policy parsed eight canonical recipes and passed seven completeness,
+compatibility, and renderer-neutrality checks. The staged diff passed
+`git diff --check`. The independent read-only review task remained running
+without a report across its bounded wait windows and was stopped; no reviewer
+result was used as completion evidence.
 
 ### Task 8: Phase 4 — Add sequence and full-film review checks
 
