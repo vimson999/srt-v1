@@ -572,9 +572,15 @@ Cover three consecutive shots using the same layout, a complex shot followed by 
 
 Return structured findings with severity, shot_ids, rule, and message. Treat repeated layout, energy imbalance, and effect monotony as review warnings; treat malformed contracts and unsupported references as errors.
 
-- [ ] **Step 3: Verify and commit Phase 4**
+- [x] **Step 3: Verify and commit Phase 4**
 
 Run structural tests plus a fixture sequence, review the warning output, commit with feat: add sequence review checks, and push.
+
+Verification on 2026-09-10: all eleven available repository test scripts
+passed, including twelve sequence-review behavior checks. Running
+`scripts/review_sequence.py` against `templates/storyboard.jsonl` produced a
+structured report with one energy annotation, zero errors, and zero warnings;
+the staged diff passed `git diff --check`.
 
 ### Task 9: Phase 5 — Connect asset retrieval, reuse, and automation safely
 
