@@ -67,6 +67,30 @@ but they must serve that one information operation. Evidence verification,
 comparison, causal explanation, accumulation, and conclusion should not all be
 expressed as the same generic scale-up.
 
+## Shot Language selection
+
+After the semantic action is stable, use `templates/shot-language.yaml` to
+retrieve compatible Shot Language families. Select against the shot's
+information lifecycle, evidence burden, motion budget, and handoff; do not
+select by effect novelty or a forced layout rotation.
+
+Record the downstream choice as:
+
+```json
+{
+  "shot_language": {
+    "family": "aligned_comparison",
+    "selection_reason": "The target prices need one truthful baseline before the consensus can be judged"
+  }
+}
+```
+
+The selected family must include the shot's `visual_action`, and the reason
+must explain the shot-specific information or attention problem. Phase 1
+records remain valid before this enrichment; a shot advancing to Shot Recipe
+or renderer handoff should have one explainable selection. Read
+`references/shot-language.md` for the registry and extension rules.
+
 ## Motion Budget
 
 `motion_budget` makes attention priority inspectable:

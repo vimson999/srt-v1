@@ -130,3 +130,24 @@ continuity axis, or declares a contrast cut without a reason.
 
 Expected: `scripts/validate_storyboard.py` fails with the shot context and the
 missing handoff field; the renderer is not asked to invent continuity.
+
+## 19. Semantic Shot Language selection
+
+Input: one Beat verifies an authentic report, accumulates six institutions into
+a consensus, and then compares their target prices.
+
+Expected: retrieve Shot Language candidates from each shot's primary
+`visual_action`; use families such as `report_reveal`,
+`sequential_card_build`, and `aligned_comparison` only where their fit and
+lifecycle apply. Record one selected family and a shot-specific
+`selection_reason`; do not turn the sequence into unrelated card layouts.
+
+## 20. Effect-count and layout-quota pressure
+
+Input: a style request asks for more visual variety by requiring several
+effects in every shot or a layout change after a fixed number of shots.
+
+Expected: preserve the semantic action, information peak, reading hold, motion
+budget, and handoff as the selection criteria. Do not encode effect counts,
+fixed layout quotas, mandatory 3D, or animation in every shot as Shot Language
+rules.

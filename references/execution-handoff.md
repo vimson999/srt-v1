@@ -13,6 +13,12 @@ shot contract. It must preserve Beat position/role, the state progression from
 `start_state` through `development_states` and `information_peak` to
 `end_state`, the chosen `visual_action`, and the `motion_budget`.
 
+When Phase 2 selection is complete, the renderer also consumes
+`shot_language.family` as the reusable visual grammar and preserves its
+shot-specific `selection_reason`. The family narrows how the lifecycle should
+be expressed; it does not authorize the renderer to replace the shot's state,
+motion budget, evidence, or handoff contracts.
+
 Transitions must consume `transition_reason`, `exit_anchor`, `entry_anchor`,
 and `continuity_axis`. If `continuity_axis=none`, the renderer may use a clean
 hard cut when `contrast_reason` explains the editorial turn. It must not add a

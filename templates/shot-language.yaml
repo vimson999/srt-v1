@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "registry_id": "srt-semantic-shot-language",
+  "selection_input": "visual_action",
+  "shot_record_contract": {
+    "field": "shot_language",
+    "family_field": "family",
+    "reason_field": "selection_reason",
+    "require_reason": true
+  },
+  "families": [
+    {
+      "id": "context_establish",
+      "visual_actions": ["establish"],
+      "use_when": [
+        "The viewer needs an orienting place, object, source, or question before details arrive."
+      ],
+      "avoid_when": [
+        "The context is already stable and the narration is making a comparison or conclusion."
+      ],
+      "entry": "Begin with a legible field and one unambiguous orienting anchor.",
+      "development": "Introduce only the context needed to frame the Beat's question.",
+      "peak": "The topic, evidence setting, or visual question becomes immediately recognizable.",
+      "hold": "Let the orientation settle only as long as recognition requires.",
+      "exit": "Keep the anchor available for the first development shot.",
+      "motion_personality": "Calm, legible, and directional rather than decorative.",
+      "handoff": {
+        "preferred_axes": ["position", "shape", "color"],
+        "contrast_mode": "Use a clean cut only when the next Beat deliberately replaces the established context."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "attention_focus",
+      "visual_actions": ["focus"],
+      "use_when": [
+        "One existing object, region, or difference must become the current attention target."
+      ],
+      "avoid_when": [
+        "The shot must add multiple new items or establish a shared measurement scale."
+      ],
+      "entry": "Enter with the relevant field already visible enough to preserve context.",
+      "development": "Reduce competing emphasis while locating the intended target.",
+      "peak": "The target becomes unmistakably primary without losing its relation to the field.",
+      "hold": "Protect recognition or reading when the target contains evidence or exact text.",
+      "exit": "Leave the focused target, or one of its visual properties, as the handoff anchor.",
+      "motion_personality": "Selective and restrained, with one dominant attention move.",
+      "handoff": {
+        "preferred_axes": ["position", "scale", "color"],
+        "contrast_mode": "Break focus only to express an explicit editorial turn."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "aligned_comparison",
+      "visual_actions": ["compare"],
+      "use_when": [
+        "Two or more values, states, or entities can share a meaningful baseline or axis."
+      ],
+      "avoid_when": [
+        "The items are not commensurable or the source does not support a quantitative relationship."
+      ],
+      "entry": "Carry in the first item or baseline that makes the comparison honest.",
+      "development": "Align comparable items and reveal differences on the same visual scale.",
+      "peak": "The relevant gap, rank, or parity is visible at a glance.",
+      "hold": "Keep labels and the shared scale readable after the difference is established.",
+      "exit": "Preserve the winning item, gap, or baseline for the next explanation.",
+      "motion_personality": "Measured and axis-led, with movement serving alignment.",
+      "handoff": {
+        "preferred_axes": ["data_scale", "position", "direction"],
+        "contrast_mode": "Use discontinuity when the narration rejects the comparison frame itself."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "sequential_card_build",
+      "visual_actions": ["accumulate"],
+      "use_when": [
+        "Items arrive in a meaningful order and their combined presence forms the conclusion."
+      ],
+      "avoid_when": [
+        "Order carries no meaning or simultaneous comparison is the real editorial task."
+      ],
+      "entry": "Start with the first credible item or an empty structure that explains where items will collect.",
+      "development": "Add items in narration order while keeping the current item primary and earlier items legible.",
+      "peak": "The completed set reads as consensus, scale, or cumulative weight.",
+      "hold": "Allow the whole set to register before it is collapsed or repurposed.",
+      "exit": "Convert one shared property of the set into the next shot's anchor or legend.",
+      "motion_personality": "Rhythmic but cumulative; each entrance serves the final whole.",
+      "handoff": {
+        "preferred_axes": ["position", "shape", "data_scale"],
+        "contrast_mode": "Clear the set only when the next shot intentionally disputes or reframes it."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "causal_flow",
+      "visual_actions": ["causal"],
+      "use_when": [
+        "The narration explains a supported sequence of causes, mechanisms, or consequences."
+      ],
+      "avoid_when": [
+        "The relation is merely correlated, unordered, or too uncertain to present as a path."
+      ],
+      "entry": "Establish the starting condition or upstream factor.",
+      "development": "Reveal one supported connection at a time in causal order.",
+      "peak": "The mechanism and its resulting outcome are visible as one coherent path.",
+      "hold": "Pause on the completed relation long enough to inspect labels and direction.",
+      "exit": "Carry the outcome node or direction of travel into the next shot.",
+      "motion_personality": "Directional and sequential, with no unrelated movement competing with the path.",
+      "handoff": {
+        "preferred_axes": ["direction", "position", "color"],
+        "contrast_mode": "A hard break is appropriate when the narration introduces a counter-mechanism."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "report_reveal",
+      "visual_actions": ["verify"],
+      "use_when": [
+        "An authentic report page, source identity, quotation region, or exact figure must be located and attributed."
+      ],
+      "avoid_when": [
+        "No authentic source artifact exists or unreadable pixels would be presented as exact text."
+      ],
+      "entry": "Present the authentic source with enough page context to establish provenance.",
+      "development": "Locate the institution, date, page region, or figure that supports the claim.",
+      "peak": "The viewer can connect the claim to a specific authentic source region.",
+      "hold": "Protect source identity and any readable evidence before leaving the page.",
+      "exit": "Use the verified region, label, or number as the next shot's anchor.",
+      "motion_personality": "Forensic and controlled, favoring location and legibility over spectacle.",
+      "handoff": {
+        "preferred_axes": ["position", "scale", "data_scale"],
+        "contrast_mode": "Cut cleanly when leaving source verification for a synthesized judgment."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "data_hero",
+      "visual_actions": ["focus", "conclude"],
+      "use_when": [
+        "One verified number or compact metric is the visual conclusion and needs decisive hierarchy."
+      ],
+      "avoid_when": [
+        "The number lacks source context, needs comparison to be meaningful, or would conceal important uncertainty."
+      ],
+      "entry": "Carry in the metric from its source, chart, or preceding comparison when possible.",
+      "development": "Remove secondary information and clarify the metric's label, unit, and direction.",
+      "peak": "The verified metric and its meaning dominate the frame together.",
+      "hold": "Keep the full label, unit, and qualification readable rather than isolating a contextless number.",
+      "exit": "Preserve the number, color, or scale if the next shot explains implications.",
+      "motion_personality": "Decisive and sparse, with motion ending before the conclusion settles.",
+      "handoff": {
+        "preferred_axes": ["data_scale", "scale", "color"],
+        "contrast_mode": "Use a hard reset when the next Beat introduces a different decision frame."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "risk_matrix",
+      "visual_actions": ["compare"],
+      "use_when": [
+        "Risks or scenarios need comparison across two meaningful dimensions or a supported severity ordering."
+      ],
+      "avoid_when": [
+        "The axes are invented, incomparable, or imply unsupported precision."
+      ],
+      "entry": "Establish the dimensions, categories, or ordering before plotting items.",
+      "development": "Place risks in a stable field while emphasizing the currently narrated item.",
+      "peak": "The dominant risk cluster, outlier, or tradeoff becomes clear without hiding uncertainty.",
+      "hold": "Allow labels, axes, and qualifications to be read together.",
+      "exit": "Carry the highest-priority risk or one axis into mitigation or judgment.",
+      "motion_personality": "Analytical and stable, with emphasis changes taking priority over ambient motion.",
+      "handoff": {
+        "preferred_axes": ["position", "color", "data_scale"],
+        "contrast_mode": "Leave the matrix abruptly only when the narrative moves from assessment to decision."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "conclusion_resolve",
+      "visual_actions": ["conclude"],
+      "use_when": [
+        "Several established elements must resolve into one qualified judgment."
+      ],
+      "avoid_when": [
+        "The evidence has not been established or the narration is still introducing material."
+      ],
+      "entry": "Bring forward only the evidence anchors needed for the judgment.",
+      "development": "Reduce competing elements and organize the remaining evidence around one claim.",
+      "peak": "The conclusion is visible as the result of the preceding evidence, not as an unsupported title card.",
+      "hold": "Let movement subside so the judgment and its qualification can settle.",
+      "exit": "Leave one conclusion anchor for the next chapter or finish with a deliberate visual stop.",
+      "motion_personality": "Convergent and decelerating, with fewer elements at the peak.",
+      "handoff": {
+        "preferred_axes": ["shape", "color", "position"],
+        "contrast_mode": "A clean chapter break is valid after the conclusion has settled."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "pause_hold",
+      "visual_actions": ["pause"],
+      "use_when": [
+        "The viewer needs protected reading time, cognitive release, or weight after a dense information peak."
+      ],
+      "avoid_when": [
+        "Nothing meaningful is present to read or the pause merely fills unused time."
+      ],
+      "entry": "Arrive with the resolved information already legible.",
+      "development": "Reduce or stop nonessential motion while preserving the attention target.",
+      "peak": "The absence of competing motion gives the conclusion its intended weight.",
+      "hold": "Use evidence density and narration cadence to determine the protected hold.",
+      "exit": "Release the held anchor gently or clear it for an intentional contrast cut.",
+      "motion_personality": "Still or nearly still, with restraint treated as an active editorial choice.",
+      "handoff": {
+        "preferred_axes": ["color", "shape", "none"],
+        "contrast_mode": "A clean cut can end the pause when the next Beat requires renewed energy."
+      },
+      "renderer_neutral": true
+    },
+    {
+      "id": "clean_cut",
+      "visual_actions": ["turn"],
+      "use_when": [
+        "The next shot deliberately replaces the current visual logic to express a contrast, correction, or chapter turn."
+      ],
+      "avoid_when": [
+        "A meaningful anchor, scale, or direction should continue into the next shot."
+      ],
+      "entry": "Complete the outgoing idea without introducing a decorative bridge.",
+      "development": "Use the editorial discontinuity itself as the transition event.",
+      "peak": "The new frame makes the contrast or reframe immediately legible.",
+      "hold": "Give the new visual premise enough time to register after the cut.",
+      "exit": "Establish an anchor inside the new visual logic for subsequent continuity.",
+      "motion_personality": "Direct and discontinuous; no effect is required to justify the cut.",
+      "handoff": {
+        "preferred_axes": ["none"],
+        "contrast_mode": "Require an explicit contrast reason in the shot handoff contract."
+      },
+      "renderer_neutral": true
+    }
+  ]
+}

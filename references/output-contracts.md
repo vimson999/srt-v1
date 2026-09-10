@@ -85,6 +85,37 @@ Contains duration, subtitle count, chapter count, visual-unit count, visual-mode
 
 ## Phase 2
 
+### Shot Language enrichment
+
+Phase 1 `storyboard/storyboard.jsonl` records remain valid before semantic Shot
+Language selection. When a shot advances to the Shot Language or Shot Recipe
+stage, add:
+
+```json
+{
+  "shot_language": {
+    "family": "report_reveal",
+    "selection_reason": "The authentic source region must be located before its value becomes a chart anchor"
+  }
+}
+```
+
+`family` must be a stable ID from `templates/shot-language.yaml`, and the
+family's `visual_actions` must contain the shot's `visual_action`.
+`selection_reason` is required for a selected family and explains the
+shot-specific information or handoff problem. Keep alternate candidates out of
+the canonical shot record.
+
+The shared registry is JSON-compatible YAML with:
+
+`schema_version,registry_id,selection_input,shot_record_contract,families`
+
+Each family contains:
+
+`id,visual_actions,use_when,avoid_when,entry,development,peak,hold,exit,motion_personality,handoff,renderer_neutral`
+
+This registry is a renderer-neutral policy artifact, not a component catalog.
+
 ### `assets_required.csv`
 
 Required columns:

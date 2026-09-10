@@ -474,19 +474,25 @@ git push origin feat/v2-director-contract
 - Create: references/shot-language.md
 - Create: templates/shot-language.yaml
 - Create: tests/test_shot_language_policy.py
+- Modify: SKILL.md
+- Modify: README.md
 - Modify: references/director-contract.md
+- Modify: references/execution-handoff.md
 - Modify: references/output-contracts.md
+- Modify: references/workflow.md
+- Modify: templates/storyboard.jsonl
+- Modify: tests/pressure-scenarios.md
 
 **Interfaces:**
 
 - Consumes: visual_action, shot states, and motion budget from the Phase 1 contract.
 - Produces: a small, semantic registry that maps actions to candidate language families such as report_reveal, sequential_card_build, aligned_comparison, causal_flow, data_hero, risk_matrix, pause_hold, and clean_cut.
 
-- [ ] **Step 1: Write policy tests for action-to-language mapping**
+- [x] **Step 1: Write policy tests for action-to-language mapping**
 
 Assert that each required visual_action has at least one language family, each family documents use_when, avoid_when, entry, development, peak, hold, and exit, and no family is defined as a visual effect count or fixed layout quota.
 
-- [ ] **Step 2: Add the registry and reference guidance**
+- [x] **Step 2: Add the registry and reference guidance**
 
 Use YAML-like Markdown-safe data with stable names and concise fields; keep the semantic action as the selection input and make the selected language explainable in the shot record.
 

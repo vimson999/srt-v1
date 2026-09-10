@@ -60,3 +60,9 @@ python3 scripts/validate_storyboard.py projects/<project_id>/storyboard/storyboa
 The validator checks structure and sequence continuity. Evidence authenticity,
 Timed Attention Cue timing, rendered visual quality, and render reliability
 remain separate review responsibilities.
+
+Phase 2 adds the small semantic registry in `templates/shot-language.yaml`.
+Use the shot's `visual_action` to retrieve compatible families, then record one
+`shot_language.family` and a shot-specific `selection_reason`. The registry
+defines reusable information lifecycles and handoff tendencies; it is not an
+effect catalog or a rule that every shot must change layout.
