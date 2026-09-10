@@ -6,6 +6,21 @@ The visual-director output is renderer-agnostic. Remotion, HyperFrames, Premiere
 
 Do not let the renderer redesign source-of-truth data unless an explicit error is found.
 
+## V2 shot contract handoff
+
+The renderer consumes `storyboard/storyboard.jsonl` as the canonical Phase 1
+shot contract. It must preserve Beat position/role, the state progression from
+`start_state` through `development_states` and `information_peak` to
+`end_state`, the chosen `visual_action`, and the `motion_budget`.
+
+Transitions must consume `transition_reason`, `exit_anchor`, `entry_anchor`,
+and `continuity_axis`. If `continuity_axis=none`, the renderer may use a clean
+hard cut when `contrast_reason` explains the editorial turn. It must not add a
+decorative transition merely to hide a missing handoff. Evidence and Timed
+Attention Cue data remain the authority for exact source content and cue
+timing; Render Review and Render Reliability remain the authority for visual
+inspection and export execution.
+
 ## Recommended persistent engine layout
 
 For repeated programmatic production, prefer one reusable engine and many project folders:

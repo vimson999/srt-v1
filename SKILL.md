@@ -13,6 +13,14 @@ Turn timed narration into a visual system, not a slideshow. **Evidence in the fo
 
 This skill stores **repeatable rules that survive a change of company, topic, asset set, or project path**. Keep episode-specific facts—company names, prices, institution names, Shot IDs, source timestamps, asset filenames, and absolute paths—in the project's SRT, storyboard, data, manifest, and configuration files. Keep reusable renderer implementation and export helpers in the engine. A profile default such as 90% background coverage is configurable guidance, not a universal requirement for every video genre.
 
+## V2 directing contract
+
+Keep the existing editorial hierarchy: Narrative Map → Chapter → Visual Beat → Shot. Visual Beat is the unit that groups shots into one understandable visual sentence; **do not add a separate Shot Group**. Phase 1 makes the middle of that hierarchy executable by describing each shot's Beat progression, information state, semantic `visual_action`, `motion_budget`, and attention handoff.
+
+The canonical rich storyboard is `storyboard/storyboard.jsonl`, one shot per non-empty line. `storyboard/storyboard.csv` is a compact compatibility projection for review, not a second source of truth. Preserve `start_state`, `information_delta`, and `end_state`; add `development_states`, `information_peak`, and `reading_hold` to complete the state machine rather than renaming it.
+
+Existing Narrative Map, Visual Beat, Evidence, Timed Attention Cue, Render Review, and Render Reliability responsibilities remain authoritative. The V2 middle layer records what information changes and how attention moves; it does not replace source verification, cue timing, rendered-pixel review, or render preflight.
+
 ## Acceptance standard
 
 This is editorial analysis, not a news package. For context footage, use **semantic fit over literal visual matching**: the broad meaning only needs to support the narration without creating a false company, event, product, or geography claim. Accept related user-provided footage and keep moving; do not block on an exact facility, model, location, or shot match unless that identity is itself the claim.
@@ -29,6 +37,7 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - If the SRT is from final audio, treat SRT timestamps as the timing source of truth.
 - If a final script also exists, use script text as wording truth and SRT as timing truth.
 - Do **not** map one subtitle to one shot. Merge subtitles into semantic visual units, usually 5–15 seconds.
+- For every shot, record Beat position/role, the state sequence from entry through information peak to exit, one semantic `visual_action`, a `motion_budget`, and a `transition_reason` with its handoff anchors.
 - Default long-form finance output is 16:9, 1920×1080; accept 4K sources; production normalization is H.264 MP4, 30fps.
 - Final rendered previews and finals **burn subtitles into the video by default** unless the user explicitly opts out. Keep captions in an independent layer and protect a subtitle safe zone.
 - For a recurring video factory, initialize or reuse `<factory_root>/asset-library/` beside `projects/`. Projects reference stable `asset_id` values; they do not copy shared media into every project.
@@ -39,6 +48,7 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - For a high-background finance profile, expose two independent controls in the design handoff: `asset_opacity` and `overlay_alpha`. If the user asks for a more visible background, adjust both and preview representative context and evidence shots. A useful starting preset is `0.42–0.50` for the asset layer (ordinary context around `0.46`, evidence around `0.50`), while reducing overly opaque masks. These are tunable profile defaults, not universal aesthetic requirements.
 - Before storyboarding a long piece, estimate usable source duration and alternates. As a planning heuristic, a 2.5-minute test needs about 4–8 minutes of usable footage across 4–6 semantic categories; a 10-minute-plus program usually needs about 20–30 minutes. Adjust for the requested repetition tolerance.
 - Before any renderer export, read `references/render-reliability.md`, run a preflight and a representative smoke render, and choose a resumable render plan proportional to duration and scene complexity.
+- Before renderer handoff, validate `storyboard/storyboard.jsonl` with `scripts/validate_storyboard.py`; keep intentional hard cuts explicit with `continuity_axis=none` and a meaningful `contrast_reason`.
 - For long or failure-prone renders, prefer checkpointed frame segments, adaptive concurrency, and one final audio mux over one-shot rendering. Reuse valid segments after a retry; never restart the whole export merely because one segment failed.
 - Deliver progressively. Do not overwhelm the user with every downstream step at once.
 
@@ -55,6 +65,8 @@ Do not ask the user to run internal indexing commands, create catalog files, ren
 ## Workflow routing
 
 Read `references/workflow.md` and execute only the current phase.
+
+For Phase 1 shot-state and attention-handoff rules, also read `references/director-contract.md` and `scripts/validate_storyboard.py`.
 
 For finance / research-report content, also read `references/finance-profile.md`.
 

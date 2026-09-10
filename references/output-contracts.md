@@ -39,15 +39,49 @@ Initialization may create valid empty JSON objects/arrays for later contracts, b
 
 ## Phase 1
 
-### `storyboard.csv`
+### `storyboard/storyboard.jsonl`
 
-Required columns:
+This is the canonical rich storyboard contract. Each non-empty line is one
+executable shot record. Keep existing timing/editorial fields and add the V2
+directing fields below; do not create a parallel Shot Group contract.
+
+Required legacy fields:
 
 `shot_id,start,end,chapter,narration_focus,visual_mode,visual_design,on_screen_text,motion,asset_need`
 
+Required V2 fields:
+
+`schema_version,beat_id,beat_position,role_in_beat,start_state,development_states,information_peak,reading_hold,information_delta,end_state,attention_target,motion_arc,motion_reason,visual_action,motion_budget,transition_reason,exit_anchor,entry_anchor,continuity_axis,contrast_reason`
+
+`role_in_beat` is one of `establish,develop,emphasize,resolve,bridge`.
+`visual_action` is one of `establish,focus,compare,accumulate,causal,verify,turn,conclude,pause`.
+`development_states` is an ordered array of objects with
+`state_id,relative_start,description,attention_target`. `reading_hold` records
+`required`, an optional `min_seconds`, and a reason; the duration is guidance,
+not a global fixed rule.
+
+`motion_budget` contains one `primary` motion object, an optional single
+`supporting` motion object, and `background_policy`. `exit_anchor` and
+`entry_anchor` are either null at a sequence boundary or objects with
+`anchor_id,kind,description`. `continuity_axis` is one of
+`position,direction,color,shape,scale,data_scale,none`. An interior
+`continuity_axis=none` requires a non-empty `contrast_reason`.
+
+Validate the JSONL with `scripts/validate_storyboard.py`. The validator checks
+contract shape and sequence continuity; it does not replace Evidence, Timed
+Attention Cue, Render Review, or Render Reliability review.
+
+### `storyboard.csv`
+
+This is a compact, human-readable compatibility projection of the JSONL
+contract. It must not encode nested state arrays or anchors as a second source
+of truth. Required columns:
+
+`shot_id,start,end,beat_id,beat_position,role_in_beat,chapter,narration_focus,visual_mode,visual_action,visual_design,on_screen_text,motion,motion_budget,asset_need,transition_reason,continuity_axis`
+
 ### `director_summary.md`
 
-Contains duration, subtitle count, chapter count, visual-unit count, visual-mode mix, terminology warnings, and next action.
+Contains duration, subtitle count, chapter count, visual-unit count, visual-mode mix, terminology warnings, Beat count, Beat role progression, visual-action mix, required reading-hold count, unresolved handoffs, and next action.
 
 ## Phase 2
 

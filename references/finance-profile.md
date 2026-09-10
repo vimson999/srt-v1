@@ -10,6 +10,19 @@ Use a layered visual grammar:
 2. Readability layer: dark translucent overlay, gradient, or light blur.
 3. Foreground: exact evidence — numbers, charts, labels, comparisons, report conclusions.
 
+## Phase 1 pacing grammar
+
+Use the semantic action that matches the editorial job: `verify` for authentic
+reports and source regions, `accumulate` for institutions or evidence building
+toward consensus, `causal` for mechanism explanations, `compare` for aligned
+metrics or target prices, `turn` for a genuine change in interpretation, and
+`conclude` or `pause` when the viewer needs to retain a judgment.
+
+The motion budget should keep evidence ahead of context. After a dense evidence
+or mechanism shot, prefer a readable hold or a simpler Visual Beat to release
+cognitive pressure. This is pacing guidance, not a fixed number of seconds,
+mandatory animation, or a quota for changing layouts.
+
 ## Editorial acceptance standard
 
 This is **not a news package**. For context B-roll, **broad meaning is sufficient for context B-roll**: related industry footage is acceptable when

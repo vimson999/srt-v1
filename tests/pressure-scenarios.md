@@ -95,3 +95,38 @@ completed segments; retry only the failed frame range with smaller segments or
 lower concurrency; render video muted and mux the correctly ranged audio once;
 verify the assembled file with media inspection; do not repeatedly download a
 browser or delete unrelated caches as the default fix.
+
+## 15. Beat progression for accumulating evidence
+
+Input: six institutional reports are introduced one at a time and should end
+as a visible consensus before the target-price comparison.
+
+Expected: keep one Visual Beat with contiguous shot positions and roles such as
+`establish`, `develop`, `emphasize`, and `resolve` or `bridge`; do not create a
+new Shot Group layer or render six unrelated cards.
+
+## 16. Shot information peak and reading hold
+
+Input: a data-heavy shot reveals a margin bridge and the narration states its
+conclusion near the end of the interval.
+
+Expected: record ordered `development_states`, identify one
+`information_peak`, and add a justified `reading_hold`; do not assume every
+shot uses the same fixed duration or generic scale animation.
+
+## 17. Intentional contrast cut
+
+Input: the film moves from a dense report evidence page to a clean full-screen
+judgment with no visual object that should continue across the cut.
+
+Expected: use `continuity_axis=none` and explain the editorial turn in
+`contrast_reason`; a decorative dissolve is not required to make the contract
+valid.
+
+## 18. Broken interior handoff
+
+Input: an interior shot has no entry anchor and declares a non-`none`
+continuity axis, or declares a contrast cut without a reason.
+
+Expected: `scripts/validate_storyboard.py` fails with the shot context and the
+missing handoff field; the renderer is not asked to invent continuity.

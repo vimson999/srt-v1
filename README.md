@@ -43,3 +43,20 @@ The agent can run `scripts/intake_assets.py` for a project drop zone. It copies
 new media by content hash, leaves the source untouched, refreshes the shared
 catalog, and leaves new items in `catalog/review_queue.json` until visual and
 provenance review is complete.
+
+## V2 storyboard contract
+
+Phase 1 storyboards use `storyboard/storyboard.jsonl` as the canonical rich
+shot contract. Each line describes Beat position, the shot information state,
+one semantic visual action, a motion budget, and the handoff to the next shot.
+`storyboard/storyboard.csv` remains a compact review projection.
+
+Validate a completed storyboard with:
+
+```bash
+python3 scripts/validate_storyboard.py projects/<project_id>/storyboard/storyboard.jsonl
+```
+
+The validator checks structure and sequence continuity. Evidence authenticity,
+Timed Attention Cue timing, rendered visual quality, and render reliability
+remain separate review responsibilities.
