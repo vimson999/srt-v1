@@ -169,3 +169,16 @@ semantic action because the narration develops one shared scale.
 Expected: sequence review emits a structured warning and energy annotations,
 but does not fail the contract or automatically force a layout change. Review
 the rendered sequence and keep the repetition when it serves comprehension.
+
+## 23. Reuse planning with publication and resolution pressure
+
+Input: the shared library contains a related context backup with prior usage,
+an unverified but relevant preview asset, and a low-resolution authentic report
+screenshot. Two adjacent shots would reuse the same context clip.
+
+Expected: rank all honest candidates by reviewed semantics and stable
+`asset_id`; keep provenance/license uncertainty behind a publication gate;
+retain the report with its resolution warning; prefer less-used equivalents;
+flag identical adjacent treatment but allow varied reuse. Request new media
+only if no honest available candidate or programmatic visual can support the
+shot.

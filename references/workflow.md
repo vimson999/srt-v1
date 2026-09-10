@@ -125,6 +125,12 @@ timing, pixels, and export behavior.
    optional unless no honest visual support exists.
 5. Present only the next actionable procurement batch unless the user requests the full list.
 
+Before declaring a supplement request, run `scripts/plan_asset_reuse.py`
+against the reviewed shared catalog, metadata sidecar, and usage history. Keep
+preview eligibility separate from publication clearance, preserve prohibited
+interpretations and resolution warnings, and write only genuine gaps after
+honest fallback and varied reuse options are exhausted.
+
 The procurement response must end with one concrete handoff sentence, for
 example: “把以上文件放入 `asset-library/inbox/<project_id>/`，然后告诉我
 ‘素材已准备好，继续’。” Do not make the user remember catalog or renderer commands.
@@ -152,6 +158,9 @@ completion notice:
 7. Report imported count, duplicate count, pending review count, coverage/reuse
    implications, and exactly one next action. Do not ask the user to run the
    indexing command themselves.
+8. Once reviewed metadata is stable, generate
+   `manifest/asset-reuse-plan.json`; bind accepted stable `asset_id` values and
+   record treatment variation before updating usage history.
 
 ## Phase 4 — Executable timeline and validation
 

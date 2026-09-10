@@ -53,6 +53,7 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - Before Shot Recipe or renderer handoff, choose one compatible Shot Language family and record why it solves that shot's information or attention problem.
 - When a canonical Shot Recipe fits, hand its ordered state timeline to the renderer adapter; record a recipe gap instead of forcing an incompatible pattern.
 - Before renderer handoff, generate a sequence review, resolve structural/reference errors, and inspect aesthetic warnings in context instead of treating thresholds as automatic failures.
+- Before requesting more media, rank the reviewed shared catalog against shot needs, preserve publication gates and prohibited interpretations, and plan varied reuse by stable `asset_id`; create a gap only when no honest candidate exists.
 - Default long-form finance output is 16:9, 1920×1080; accept 4K sources; production normalization is H.264 MP4, 30fps.
 - Final rendered previews and finals **burn subtitles into the video by default** unless the user explicitly opts out. Keep captions in an independent layer and protect a subtitle safe zone.
 - For a recurring video factory, initialize or reuse `<factory_root>/asset-library/` beside `projects/`. Projects reference stable `asset_id` values; they do not copy shared media into every project.
@@ -93,6 +94,9 @@ renderer-neutral recipe set.
 
 For sequence or full-film planning review, also read
 `references/sequence-review.md` and run `scripts/review_sequence.py`.
+
+For catalog retrieval, candidate ranking, or reuse planning, also read
+`references/asset-retrieval.md` and run `scripts/plan_asset_reuse.py`.
 
 For finance / research-report content, also read `references/finance-profile.md`.
 

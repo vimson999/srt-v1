@@ -76,6 +76,10 @@ pixels are unreadable, do not transcribe or invent them.
 - `catalog/search-assets.mjs` is the standard discovery entry point. Use it
   before requesting new media; it returns ranked candidate cards with a
   decision, intended use, prohibited interpretation, and usage history.
+- `scripts/plan_asset_reuse.py` turns reviewed catalog results and shot needs
+  into a deterministic reuse plan. It merges only durable semantic metadata,
+  prefers equally fitting less-used assets, preserves publication gates and
+  resolution warnings, and never mutates the catalog or raw files.
 
 Recommended catalog fields:
 
@@ -99,6 +103,10 @@ Keep preview eligibility separate from public-release clearance: `keep` may be
 usable in a preview while `provenance_status` or `license_status` remains
 unverified. The search result should expose this as `publication_gate` rather
 than silently upgrading an unverified source.
+
+After the shot needs are stable, run `scripts/plan_asset_reuse.py` and write
+`manifest/asset-reuse-plan.json`. Read `references/asset-retrieval.md` for the
+need, candidate-card, reuse-treatment, and genuine-gap contracts.
 
 The user should only need to place files in `inbox/<project_id>/` and say
 “素材已准备好，继续”. The agent owns the following operation; do not ask the

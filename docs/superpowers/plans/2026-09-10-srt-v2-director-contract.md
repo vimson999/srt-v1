@@ -589,20 +589,22 @@ the staged diff passed `git diff --check`.
 - Create: references/asset-retrieval.md
 - Create: scripts/plan_asset_reuse.py
 - Create: tests/test_asset_reuse_planning.py
+- Modify: SKILL.md
 - Modify: references/asset-library.md
 - Modify: references/workflow.md
 - Modify: references/output-contracts.md
+- Modify: tests/pressure-scenarios.md
 
 **Interfaces:**
 
 - Consumes: asset_id, shot_id, visual_action, shot_language, catalog metadata, usage history, provenance status, and selection status.
 - Produces: ranked candidate cards and a reuse plan that records semantic fit, prohibited interpretation, publication gate, prior usage, treatment variation, and genuine gaps without treating unique footage duration as a production blocker.
 
-- [ ] **Step 1: Write failing reuse-planning tests**
+- [x] **Step 1: Write failing reuse-planning tests**
 
 Assert that an honest related context asset can rank as a fallback, an unverified asset remains behind a publication gate, a low-resolution authentic report is retained with a warning, immediate identical reuse is flagged, and varied reuse is allowed.
 
-- [ ] **Step 2: Implement the planner against the existing catalog contracts**
+- [x] **Step 2: Implement the planner against the existing catalog contracts**
 
 Keep raw files immutable, keep metadata sidecars durable, use stable asset_id joins, and write usage/repetition notes without copying the shared library into project folders.
 
