@@ -77,6 +77,11 @@ Inspect available inputs and resume from the furthest completed phase:
 
 Do not make the user repeat work already present.
 
+For a continuation or quality regression, also locate the active `DESIGN.md`,
+its standard revision, the canonical production entry and the scope of previous
+acceptance. Resume implementation against those rules, not a new style inferred
+from the last video. Read `production-standard.md` before extending production.
+
 ## Phase 1 — Narrative map, chapter arcs, and visual beats
 
 Do not convert SRT entries directly into a rotating list of visual modes. First
@@ -175,6 +180,9 @@ completion notice:
    source path). It copies supported media into shared `raw/`, uses content
    hashes to skip duplicates, and leaves the supplied source untouched.
 2. Inspect thumbnails or representative frames; do not trust filenames alone.
+   Before binding a source range, inspect multiple times within that actual
+   trim and its motion. A thumbnail of equipment does not establish that a
+   longer clip contains no interviews, unrelated shots or distracting cuts.
 3. Mark each asset: `keep`, `backup`, `reject`, or `transition_only`.
 4. Write reviewed descriptions/tags/status/source notes to
    `asset-library/catalog/metadata.json`; let the generated index builder merge
@@ -217,7 +225,13 @@ completion notice:
 
 ### Plan review and render review
 
-Before production handoff, run two distinct reviews:
+Before production handoff, separate the following review scopes:
+
+First establish or reuse the versioned project standard in `DESIGN.md`, as
+described in `production-standard.md`. Its decisions precede the sample. Track
+each shot's implementation and review evidence separately; a valid plan is not
+an implemented scene. Keep plan, representative render and full-film review
+as distinct scopes below.
 
 1. **Plan review** — inspect the narrative map, chapter arcs, beat transitions,
    shot functions, information deltas, asset responsibilities, and source gates.
@@ -229,9 +243,12 @@ Before production handoff, run two distinct reviews:
    2–4s motion sample. For multi-target shots, inspect at least two cue
    activations and the handoff between them. Record `render_score` separately
    from `plan_score`.
-3. **Full-film review** — after the representative section is accepted, inspect
-   low-resolution full-film rhythm and chapter continuity, then render the final
-   export. A background-coverage percentage cannot replace this review.
+3. **Full-film review** — after the representative section is accepted, implement
+   and review every remaining shot against the same standard, including all
+   materially different later scenes. Inspect low-resolution full-film rhythm
+   and chapter continuity; keep frame sampling distinct from continuous motion
+   review. Export the final only within the user's authorization. A background-
+   coverage percentage cannot replace this review.
 
 ## Phase 5 — Production handoff
 
@@ -239,10 +256,11 @@ Hand off renderer-agnostic artifacts first. Then adapt to the chosen engine.
 
 For test renders and final renders, subtitles are burned in by default. Use the SRT as a dedicated caption layer with safe-zone collision avoidance.
 
-For a first test, prefer one representative 30–90s section when the visual language is unproven. Once accepted, scale to the full piece. If the visual system is already validated, a low-resolution full-length V1 is appropriate.
+For a first test, prefer one representative 30–90s section when the visual language is unproven. Render it as a frame range of the canonical production composition. Once accepted, implement the remaining shots with the same rules and entry point; the sample does not confer approval on unimplemented or unreviewed shots. If the visual system is already validated, a low-resolution full-length V1 is appropriate.
 
-For Remotion, also inspect representative stills at an opening, a data-heavy
-shot, an evidence shot, and a context-B-roll shot before exporting MP4. If the
+For Remotion, inspect representative stills at the opening and each applicable
+data-heavy, evidence or context-B-roll shot type before exporting MP4. Do not
+add a shot type absent from the brief merely to fill this check. If the
 local Chrome and Remotion browser versions differ, use an explicitly configured
 local browser or fix the environment; do not repeatedly download a browser
 binary without user approval.

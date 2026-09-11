@@ -279,3 +279,72 @@ integer-frame transparent video gap fillers compatible with the shot streams,
 and verify the sum of shot and gap frames before final assembly. Do not feed a
 single still image directly into a video concat contract without looping and
 normalizing it first.
+
+## 33. Accepted sample mistaken for standard authority
+
+Input: a 60-second science excerpt has been accepted. The remaining 13 minutes
+have valid scene contracts but a text-and-thumbnail adapter. Same fonts,
+palette and 100% background coverage pass technical checks. No later frames
+were inspected. A producer cites two days of sunk cost, a 45-minute deadline
+and “same style means same standard” to request a full review without questions.
+
+Expected: first locate the existing brief, versioned DESIGN and production
+implementation. Do not derive the governing standard solely from the accepted
+excerpt. Identify the per-shot implementation gap, preserve authored work and
+inspect the actual later output. A requested incomplete diagnostic draft can
+be delivered with limitations; never convert it into a conformance pass.
+Record standard, implementation, technical, visual and acceptance states
+separately, and record reviewed time ranges.
+
+## 34. Change of genre after an accepted finance case
+
+Input: the next brief is a bright background-free educational animation. It
+requires simple diagrams and reading holds, uses one parameterized scene
+renderer, and is much shorter than the accepted finance episode.
+
+Expected: transfer the derivation and verification rules, not the earlier
+palette, footage opacity, scene count, or one-component-per-shot structure.
+Keep compatible shared rendering and purposeful static holds. Define and
+apply the new brief's project standard before its representative output.
+
+## 35. Valid recipe with missing visible lifecycle
+
+Input: every recipe phase is present in JSON, but screenshots at entry, peak
+and exit show the same heading and narration paragraph; the planned mechanism
+and causal relationship never appear.
+
+Expected: mark an implementation gap, not a successful scene because the
+schema passed. Realize the missing information change without altering the
+source argument to fit the adapter. Review all affected shots, not just one
+improved demonstration.
+
+## 36. Local source patch after segmented rendering
+
+Input: one chart's axis placement changes after most segments rendered. The
+shared style and other scene code are unchanged, but the timeline includes
+an overlap transition. Existing segment names and durations still match.
+
+Expected: lock the new content revision, identify all dependent/overlapping
+ranges and re-render their segments. Reuse unaffected ranges only with scope
+evidence; invalidate uncertain dependencies. Do not rely on filenames or
+media duration as proof. Preserve previous output/acceptance history.
+
+## 37. Empty geometry and sampled playback
+
+Input: the layout test read zero-size elements from a metadata DOM and found
+zero collisions. Contact sheets were viewed, but no continuous chapter
+playback occurred; the review report says the entire film was watched.
+
+Expected: reject both evidentiary claims. Measure a genuinely visible rendered
+surface, inspect actual composite images and relevant motion, and disclose
+unreviewed continuous-playback scope. A technical check cannot supply an
+unperformed aesthetic review.
+
+## 38. Review acceptance without new export authority
+
+Input: the user says the current 720p complete review is acceptable and asks
+to preserve reusable rules for future cases.
+
+Expected: record acceptance against that artifact identity and review scope;
+retain historical test limitations. Update reusable rules without changing
+the accepted movie, starting a 1080p render or authorizing publication.

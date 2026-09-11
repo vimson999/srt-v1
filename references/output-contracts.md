@@ -130,6 +130,13 @@ Required fields:
 
 This contract records review evidence; it does not replace the shot plan.
 
+For authored production, also keep `standard_ref,standard_revision,
+implementation_ref,implementation_status,rule_checks,review_evidence` in each
+record. These fields connect the existing shot to implementation and checks;
+they are not a new storyboard source. See `production-standard.md` for their
+meaning. Empty arrays, pending implementation and null scores are valid before
+work is performed; copying approval from the sample is not.
+
 ### `storyboard/storyboard.csv`
 
 This is a compact, human-readable compatibility projection of the JSONL
@@ -310,7 +317,7 @@ between mutually exclusive targets.
 
 ## Design artifact
 
-When production is imminent, produce `DESIGN.md` defining canvas, typography, spacing, safe area, number hierarchy, card/overlay treatment, chart style, motion rules, subtitle safe zone, transitions, and anti-patterns. For high-background profiles, also record `asset_opacity`, `overlay_alpha`, the representative shots used for the visibility check, and any mobile-legibility decision. These fields make background visibility reproducible instead of treating it as an untracked visual impression.
+Before authoring a representative render, establish or reuse `DESIGN.md` with a `standard_revision`, its brief/decision basis, and rules expressed as applicability, required visible result and verification method. Define canvas, typography, spacing, safe area, number hierarchy, card/overlay treatment, chart style, motion rules, subtitle safe zone, transitions, and anti-patterns. For high-background profiles, also record `asset_opacity`, `overlay_alpha`, the representative shots used for the visibility check, and any mobile-legibility decision. These fields make background visibility reproducible instead of treating it as an untracked visual impression. Keep project-specific values here, not as universal rules in the skill.
 
 When `motion_cues.json` is used, `DESIGN.md` should also define the attention
 language: target emphasis, inactive-peer behavior, enter/hold/settle timing, and
@@ -334,13 +341,18 @@ For a preview or final export, record the reproducible render handoff:
 `composition_id,width,height,fps,total_frames,expected_duration,actual_duration,mode,segment_frames,segments,audio_source,audio_range,audio_mode,verification,status,warnings`
 
 For versioned preview/final handoffs, also record `preview_revision`,
-`rendered_revision`, and `concurrency`. If the preview revision is newer than
+`rendered_revision`, `standard_revision`, and `concurrency`. If the preview revision is newer than
 the rendered revision, set the render status to `stale` or equivalent and keep
 the older output's verified metadata unchanged until a new render succeeds.
 
 Each `segments` item should include:
 
 `index,start_frame,end_frame,frame_count,output_path,status,attempts,log_path`
+
+For reused segments after a change, also record their original render revision,
+the current target revision and the dependency/scope proof permitting reuse.
+For accepted files, record acceptance scope and artifact identity separately
+from technical and visual review; acceptance does not create export authority.
 
 Use `mode=preview` or `mode=final`. `audio_mode` should distinguish a muted
 video render followed by one final mux from an intentionally silent output.

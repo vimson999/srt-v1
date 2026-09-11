@@ -92,6 +92,27 @@ not encode the same audio into every segment, and do not change speech content
 while solving a timing or render problem. SRT remains the timing authority when
 the user has supplied final subtitles.
 
+## Version-safe assembly
+
+Record `standard_revision` separately from `rendered_revision`. Lock the active
+composition, scene/content implementation, data, subtitles, fonts, asset
+bindings and render settings for the batch. Preview and final use that same
+production path; resolution and frame range are output settings, not separate
+scene implementations.
+
+Verified media from another revision is not automatically a valid cache hit.
+After a change, identify all affected frame ranges, including transitions or
+overlaps, and re-render every intersecting segment. Reuse other segments only
+with recorded dependency/scope evidence that their rendered inputs are
+unchanged. If independence cannot be proved, invalidate the uncertain ranges;
+a shared/global change may require the whole film. Matching filenames, sizes,
+durations or palette do not prove equivalence. Keep older output and acceptance
+records as history; mark current review state separately.
+
+When preview/full parity or concatenation has failed before, compare selected
+decoded frames in overlapping ranges and around segment joins with the actual
+assembled output. The comparison verifies assembly, not aesthetic quality.
+
 ## Temporary files and cleanup
 
 Use a task-owned temporary directory when possible. Check that an external

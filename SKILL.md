@@ -39,6 +39,25 @@ A **visual beat** is a unit of viewer understanding; a **shot** is an executable
 
 This skill stores **repeatable rules that survive a change of company, topic, asset set, or project path**. Keep episode-specific facts—company names, prices, institution names, Shot IDs, source timestamps, asset filenames, and absolute paths—in the project's SRT, storyboard, data, manifest, and configuration files. Keep reusable renderer implementation and export helpers in the engine. A profile default such as 90% background coverage is configurable guidance, not a universal requirement for every video genre.
 
+## Standard-driven production
+
+Before authoring a representative render, read
+`references/production-standard.md` and establish or reuse the project's
+versioned `DESIGN.md`. The standard comes from the user's brief, source duties,
+and explicit design decisions; **the sample and full film are both outputs of
+that standard**. An accepted sample is regression evidence, not the source of
+a replacement standard. Recover existing rules and implementation before
+proposing to reverse-extract a style from a video.
+
+Every shot must realize its planned information states, evidence, source-timed
+attention, layout, and background policy. Shared primitives or compatible
+adapters are welcome; matching a palette or filling every recipe field does
+not establish implementation completeness. Preview and final use the same
+production composition and content revision; only requested frame range and
+technical delivery settings differ. Track per-shot implementation and actual
+review evidence, including unreviewed work. Never silently lower the remaining
+film's standard to meet a deadline.
+
 ## V2 directing contract
 
 Keep the existing editorial hierarchy: Narrative Map → Chapter → Visual Beat → Shot. Visual Beat is the unit that groups shots into one understandable visual sentence; **do not add a separate Shot Group**. Phase 1 makes the middle of that hierarchy executable by describing each shot's Beat progression, information state, semantic `visual_action`, `motion_budget`, and attention handoff.

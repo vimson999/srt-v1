@@ -4,6 +4,11 @@ Use this reference after the execution plan exists and before a full export.
 Textual planning and rendered appearance answer different questions, so keep
 the reviews separate.
 
+The authority is the project brief and versioned DESIGN standard, not the
+accepted sample alone. Read `production-standard.md`; keep per-shot
+implementation completeness, technical verification, visual review and user
+acceptance separate. Do not mark a review complete from schema fields alone.
+
 ## Hard gates
 
 Every shot must pass these gates before it can be approved, regardless of its
@@ -92,6 +97,20 @@ If a cue behavior was approved as a reusable example, verify that analogous
 attention changes across the full timeline received the same decision rule.
 Then run the renderer's technical preflight and export. A high background
 coverage percentage cannot replace this review.
+
+Maintain a review record for every shot, including entry, information peak,
+exit and additional narrated attention changes. Record exact reviewed ranges
+and whether evidence is still frames, measured visible geometry or continuous
+playback. Contact sheets do not establish full-length motion/rhythm review.
+Unreviewed scope remains explicit; a full draft can be useful without being
+marked visually approved. Do not invent retrospective plan or render scores.
+
+For charts, inspect the physical mapping between tick labels, plot bounds and
+marks, not only the displayed numeric values. For backgrounds, inspect the
+selected temporal range in the final composite, not just a source thumbnail.
+Automated geometry checks must measure a visible rendered surface, not an
+unmounted or zero-size metadata DOM. Keep these checks distinct from editorial
+judgment and user acceptance of a particular file.
 
 ## Revision protocol
 

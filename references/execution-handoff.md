@@ -7,7 +7,7 @@ The visual-director output is renderer-agnostic. Remotion, HyperFrames, Premiere
 Do not let the renderer redesign source-of-truth data unless an explicit error is found.
 
 The renderer is selected after the narrative map, visual beats, execution shots,
-and representative review are valid. HyperFrames and Remotion are execution
+and plan review are valid, then used for representative render review. HyperFrames and Remotion are execution
 choices, not substitutes for visual direction. To compare renderers, keep the
 same approved shot plan, assets, timing, and data on both sides.
 
@@ -30,6 +30,13 @@ ordered lifecycle phases to concrete primitives while preserving source data,
 state order, attention cues, reading holds, motion responsibilities, and
 handoff anchors. Read `references/shot-recipes.md`; never treat a renderer
 component as the source recipe.
+
+Read `production-standard.md` before implementing the handoff. Record the
+concrete implementation and unresolved responsibilities for every shot. A
+compatible recipe is not complete when its distinct information states have
+been reduced to a heading and narration paragraph. Common primitives and
+adapters may be retained when they faithfully realize each shot's argument;
+separate code components are not a universal requirement.
 
 Transitions must consume `transition_reason`, `exit_anchor`, `entry_anchor`,
 and `continuity_axis`. If `continuity_axis=none`, the renderer may use a clean
@@ -77,12 +84,17 @@ Any rendered review or final video burns subtitles in by default unless the user
 ## First render strategy
 
 1. Validate all JSON and media refs.
-2. Complete plan review, then render a representative 30–90s section first if the visual system is unproven.
+2. Establish or reuse the versioned DESIGN standard and complete plan review.
+   Render a representative 30–90s range from the canonical production entry
+   first if the visual system is unproven; inspect later risks absent from it.
 3. Inspect entry, peak, and exit states plus important 2–4s transitions. For
    multi-target shots, inspect at least two timed cue activations and their
    handoff; record render review separately from plan review.
-4. After approval, scale the same design system to the full timeline.
-5. Use preview quality first (e.g. 720p) for full-length V1; render final 1080p after review.
+4. After approval, realize each remaining shot against the same standard and
+   production entry. Preview and full outputs differ in frame range and delivery
+   settings, not evidence, scene behavior, asset bindings or caption logic.
+5. Use preview quality first (e.g. 720p) for full-length V1; after review, render
+   the requested final resolution only when the user has authorized that export.
 
 For high-background finance programs, include a coverage report in the handoff:
 target coverage, measured coverage, unique usable footage seconds, semantic
