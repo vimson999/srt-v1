@@ -11,7 +11,8 @@ honghao = next(item for item in cases['cases'] if item['case_id'] == 'honghao-09
 
 checks = {
     'failure class exists': 'fr-11' in failure and 'ui-first' in failure,
-    'skill says visual-first': 'visual-first' in skill and 'ui-first' in skill,
+    'skill routes through production standard': 'references/production-standard.md' in skill,
+    'standard is visual-first': 'visual-first' in standard and 'ui-first' in standard,
     'standard covers container-first': 'container-first' in standard and 'visual relationship' in standard,
     'honghao covers fr-11': 'FR-11' in honghao['primary_failure_classes'],
     'library documents mode regression': 'ui-first' in readme and 'visual-first' in readme,
