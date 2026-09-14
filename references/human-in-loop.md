@@ -1,5 +1,7 @@
 # Human-in-the-loop policy
 
+Policy version: 1
+
 The user is the product owner, not the production QA loop. Human confirmation must not be used as a substitute for self-review, regression gates, or visual-quality judgment.
 
 ## Default mode: autonomous production
