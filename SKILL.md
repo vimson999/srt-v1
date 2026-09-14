@@ -42,7 +42,7 @@ This skill stores **repeatable rules that survive a change of company, topic, as
 ## Standard-driven production
 
 Before authoring a representative render, read
-`references/production-standard.md` and establish or reuse the project's
+`references/production-standard.md` and `references/human-in-loop.md`, then establish or reuse the project's
 versioned `DESIGN.md`. The standard comes from the user's brief, source duties,
 and explicit design decisions; **the sample and full film are both outputs of
 that standard**. An accepted sample is regression evidence, not the source of
@@ -102,7 +102,7 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - Default long-form finance output is 16:9, 1920×1080; accept 4K sources; production normalization is H.264 MP4, 30fps.
 - Final rendered previews and finals **burn subtitles into the video by default** unless the user explicitly opts out. Keep captions in an independent layer and protect a subtitle safe zone.
 - For a recurring video factory, initialize or reuse `<factory_root>/asset-library/` beside `projects/`. Projects reference stable `asset_id` values; they do not copy shared media into every project.
-- Give each project one drop zone at `asset-library/inbox/<project_id>/`. The user supplies files there and reports “素材已准备好，继续”; catalog maintenance is agent-owned.
+- Give each project one drop zone at `asset-library/inbox/<project_id>/`. The user may supply files there; catalog maintenance, indexing, review and binding are agent-owned.
 - Keep generated inventory in `catalog/assets.json`, durable reviewed descriptions in `catalog/metadata.json`, usage in `catalog/usage.json`, and unresolved review work in `catalog/review_queue.json`.
 - For the high-background finance-podcast profile, treat 90% video-layer coverage as a configurable diagnostic inherited from the profile, never as a director goal, quality score, or pass condition. Keep evidence and readable data on screen when they need a holdout from background video.
 - Treat background coverage and perceived background visibility as separate acceptance checks. Coverage counts frames with a valid video layer; visibility is the result after the asset opacity and every dark gradient, mask, or overlay are composited.
@@ -117,19 +117,31 @@ For a full-length composition, default to **reuse existing assets for the full-l
 - For long or failure-prone renders, prefer checkpointed frame segments, adaptive concurrency, and one final audio mux over one-shot rendering. Reuse valid segments after a retry; never restart the whole export merely because one segment failed.
 - Deliver progressively. Do not overwhelm the user with every downstream step at once.
 
-## Human handoff contract
+## Human-in-the-loop contract
 
-Keep the user-facing workflow to three checkpoints:
+Read `references/human-in-loop.md`. The default interaction mode is **autonomous production inside the user's requested scope**. Confirmation is not a quality-control mechanism.
 
-1. User provides SRT/audio → initialize the project, parse timing, and provide the next asset batch.
-2. User places requested media in the project drop zone and says “素材已准备好，继续” → run `scripts/intake_assets.py`, inspect files, update metadata/catalog/manifests, and report only gaps or the next decision.
-3. User asks for preview or approves the picture → validate and open Studio. Treat preview approval and final export as separate checkpoints; start a long MP4 render only after an explicit request such as “导出”“重新导出” or “重新渲染”.
+Once the user has clearly requested work such as “制作”, “继续”, “按这个标准继续”, or “做完”, treat that as standing authorization for non-destructive production steps inside that scope. Continue through planning, implementation, representative rendering, self-review, regression repair, expansion probing and ordinary review rendering without repeatedly asking “是否确认/是否继续”.
+
+When a self-review or regression gate fails, repair it autonomously and rerun the smallest useful check. Do not ask the user whether a known quality regression is acceptable, and do not ask the user to lower an established standard merely to finish faster.
+
+Stop and ask only when human input is genuinely required:
+
+1. essential user-owned input, fact, source, credential or permission is missing and no honest fallback exists;
+2. a material creative fork remains unresolved by the brief, `DESIGN.md` or evidence and would meaningfully change downstream work;
+3. the next action is externally consequential or irreversible, such as public publishing, a paid purchase/license, or destructive deletion/overwrite of user sources;
+4. the user explicitly requested a review checkpoint, for example “先给我看样片再继续”;
+5. the next action materially expands the requested deliverable rather than implementing it.
+
+Do **not** stop for routine approval of narrative maps, visual beats, storyboards, Shot Language/Recipe choices, honest asset bindings, internal-state timing, attention cues, self-reviewed representative renders, expansion probes, technical test results, or routine regression repairs.
+
+Interpret rendering authorization from the requested deliverable: if the user asked only for analysis/storyboard/preview, do not silently expand to a final video; if the user asked to produce/finish/export a video as the deliverable, ordinary non-destructive preview/final rendering is in scope and does not require repeated phase-by-phase confirmation. Public publishing and other external/destructive actions still require explicit authorization.
 
 Do not ask the user to run internal indexing commands, create catalog files, rename assets, or manually update manifests. If the user drops files elsewhere, accept an explicit source path and perform the safe copy/scan yourself; never delete the source without explicit authorization.
 
 ## Workflow routing
 
-Read `references/workflow.md` and execute only the current phase.
+Read `references/human-in-loop.md` before introducing any user-facing checkpoint. Read `references/workflow.md` and execute only the current production phase without turning phase boundaries into automatic approval requests.
 
 For Phase 1 shot-state and attention-handoff rules, also read `references/director-contract.md` and `scripts/validate_storyboard.py`.
 
@@ -187,4 +199,5 @@ For SRT-only new projects, use `scripts/init_project.py` or reproduce its contra
 - For shared media, intake new files incrementally by content hash, preserve `catalog/metadata.json` across index rebuilds, and update the catalog and usage record after binding assets to shots; record missing thumbnails, missing files, and insufficient semantic alternates explicitly.
 - Before rendering, verify writable temporary storage, available disk space and memory, active Studio/Chrome renderer instances, the configured browser, `ffmpeg`/`ffprobe` availability, composition metadata, referenced media, and a short smoke render. For media-heavy 1080p work, test a representative range at concurrency 1 and then a higher value only if memory allows; use the highest setting that completes reliably. A root-load or `delayRender` timeout that appears only with parallel workers is a resource signal to reduce concurrency, not evidence that the composition must be rewritten. Tell the user to close unnecessary browsers or Studio instances before an expensive render when doing so can materially improve available memory.
 - After rendering, verify the actual output with media inspection: duration, frame count, resolution, frame rate, audio presence/duration, and readable file size. Record retries, segment ranges, audio source/range, concurrency, browser/memory warnings, and the render revision in the handoff. If preview code changes after the last MP4, mark the final output stale until it is rendered again; do not label it current merely because an older MP4 still exists.
-- Project initialization must preserve the supplied SRT, create a clean `script.txt`, create valid empty contracts for later phases, and refuse silent overwrite of an existing project.
+- Project initialization must preserve the supplied SRT, create a clean `script.txt`, create valid empty contracts for later phases, and refuse silent overwrite of an existing project automatically.
+- Do not use user confirmation, silence, or “就这样/可以/继续” as evidence that a known visual defect passed QA. Quality conclusions must come from the defined review evidence and regression gates.
