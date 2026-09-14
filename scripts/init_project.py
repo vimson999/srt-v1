@@ -186,6 +186,38 @@ def initialize_project(
             "shots": [],
         },
         "manifest/missing_assets.json": {"schema_version": 1, "items": []},
+        "manifest/production_state.json": {
+            "schema_version": 1,
+            "standard_revision": None,
+            "content_revision": None,
+            "canonical_production_entry": None,
+            "representative": {
+                "production_entry": None,
+                "content_revision": None,
+                "review_status": "pending",
+            },
+            "expansion_probe": {
+                "production_entry": None,
+                "content_revision": None,
+                "review_status": "pending",
+                "materially_different_shots_checked": 0,
+            },
+            "full_film": {
+                "production_entry": None,
+                "content_revision": None,
+                "implementation_status": "pending",
+                "visual_review_status": "pending",
+            },
+            "fallback_renderer": None,
+            "feedback_generalization_scan": {"status": "pending"},
+            "render_preflight": {"status": "pending"},
+            "continuous_playback_review": {
+                "status": "pending",
+                "coverage_seconds": 0,
+                "artifact": None,
+            },
+            "regressions": [],
+        },
     }
     for rel, payload in placeholders.items():
         (project / rel).write_text(
@@ -226,6 +258,10 @@ def initialize_project(
             "summary_path": "storyboard/director_summary.md",
             "csv_projection_path": "storyboard/storyboard.csv",
             "validator": "scripts/validate_storyboard.py",
+        },
+        "production_gate": {
+            "state_path": "manifest/production_state.json",
+            "validator": "scripts/validate_production.py",
         },
         "renderer": None,
     }
