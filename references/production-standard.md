@@ -47,7 +47,7 @@ editorial hierarchy. Before a shot is considered implemented, resolve:
 | --- | --- | --- |
 | Information | What appears or changes from entry to peak and exit; the foreground explains the actual claim | Compare the rendered states with the planned information delta |
 | Evidence | Verified data, units, source identity, caveats and legible interpretation | Inspect source-backed values and actual chart geometry; labels and marks share the same scale |
-| Attention | Spoken trigger → stable visible target → readable hold and handoff | Check actual SRT windows and rendered cue changes, not evenly divided shot time |
+| Attention | Spoken trigger -> stable visible target -> readable hold and handoff | Check actual SRT windows and rendered cue changes, not evenly divided shot time |
 | Composition | Deliberate reading order, usable source crop, whitespace and subtitle safe area | Inspect the final composite at review size; use real visible geometry when measuring |
 | Background | Explicit role, selected source range, treatment and temporal behavior, or a justified absence | Inspect the chosen trim at multiple times and in motion; a thumbnail does not certify a long clip |
 | Completion | Concrete implementation location and current rendered evidence | Record pending work rather than inheriting a pass from another shot |
@@ -64,6 +64,30 @@ Purposeful holds and repeated comparison layouts remain valid. Background-free
 work remains valid when the brief and shot role call for it. For a profile that
 requires visible context, check layer presence, perceived visibility and
 non-competition separately in the actual composite.
+
+### Visual-first authoring mode
+
+For core explanatory scenes, author from the **visual relationship** outward, not from a container inward.
+
+The first implementation question is: **what must the viewer see, compare, locate, accumulate, transform, or connect at this moment?** The answer should normally be expressed through one or more of:
+
+- footage or a selected source region;
+- real report/evidence placement;
+- spatial relationship between actors, claims or objects;
+- data geometry such as aligned bars, scales, timelines, flows or matrices;
+- object/state change tied to the narration;
+- deliberate visual hold when the correct action is to let evidence remain readable.
+
+Only after that relationship is clear should cards, panels, chips, labels or other UI containers be added as support.
+
+**Container-first** authoring is a regression when materially different core claims are first assigned the same title/body/card shell and the scene-specific meaning is then squeezed into that shell. Matching typography, color, animation or component APIs does not rescue a container-first scene whose argument is still carried mostly by prose.
+
+During representative and expansion review, ask both questions:
+
+1. If the titles and paragraph copy disappeared, would the remaining scene still communicate the main relationship or evidence responsibility?
+2. Across several materially different core shots, are the dominant silhouettes and information behaviors genuinely different where the argument differs, or are only the words changing inside the same shell?
+
+A negative answer on several core scenes is evidence of `FR-11 UI_FIRST_AUTHORING_COLLAPSE`; stop broad scaling and change the authoring mechanism rather than polishing the containers.
 
 ## 3. One production path, two output scopes
 
@@ -171,3 +195,4 @@ waste.
 | “This accepted case used many custom components.” | Preserve the reasoning and checks, not its component count or file structure. |
 | “The user showed one broken shot; fix that shot.” | Classify the failure and scan all analogues before declaring it fixed. |
 | “The first fix failed; try another cosmetic patch.” | On the second P0/P1 occurrence, stop and repair the production mechanism. |
+| “The renderer has a nice panel component, so use it as the starting point for most scenes.” | Start from the visual relationship and evidence responsibility; use the panel only if it supports that scene-specific explanation. |
