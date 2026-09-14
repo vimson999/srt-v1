@@ -95,6 +95,7 @@ def initialize_project(
         "storyboard",
         "data",
         "manifest",
+        "handoff",
         "output/preview",
         "output/final",
         "scripts",
@@ -234,6 +235,40 @@ def initialize_project(
         "# Director Summary\n\nStatus: pending Phase 1.\n", encoding="utf-8"
     )
 
+    codex_task = f"""# Codex implementation handoff — {pid}
+
+Status: pending director contract.
+
+Read the repository root `AGENTS.md` and `references/chatgpt-codex-handoff.md` before implementation.
+
+## Director revision
+
+- Commit / revision: pending
+- Authoritative director artifacts: pending
+- Project standard revision: pending
+
+## Implementation scope
+
+Pending director handoff.
+
+## Regression scope
+
+- Failure classes: pending
+- SRT regression case IDs: pending
+- Representative sample target: pending
+
+## Boundary
+
+Do not reinterpret the director contract for implementation convenience. You may change code structure, renderer technique, asset processing, caching, performance strategy, and other implementation details when the visible meaning and evidence responsibility remain intact.
+
+If an implementation problem can be solved without changing director meaning, solve it autonomously. If satisfying the contract would require weakening or changing the director intent, record the blocker and return the smallest director-level question instead of substituting a generic layout.
+
+## Implementation return
+
+Record the implementation revision, tests/regressions run, representative render evidence, unresolved blockers, and any director-level question here or in a linked handoff artifact before claiming completion.
+"""
+    (project / "handoff" / "codex-task.md").write_text(codex_task, encoding="utf-8")
+
     project_json = {
         "schema_version": 1,
         "project_id": pid,
@@ -262,6 +297,11 @@ def initialize_project(
         "production_gate": {
             "state_path": "manifest/production_state.json",
             "validator": "scripts/validate_production.py",
+        },
+        "handoff_contract": {
+            "version": 1,
+            "path": "handoff/codex-task.md",
+            "repository_policy": "references/chatgpt-codex-handoff.md",
         },
         "renderer": None,
     }
