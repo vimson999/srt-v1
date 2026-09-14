@@ -136,6 +136,20 @@ State count is never a quality metric.
 
 A third cosmetic patch is prohibited as the default response.
 
+### FR-11 UI_FIRST_AUTHORING_COLLAPSE — P0/P1
+
+**Failure:** the renderer or scene authoring process starts from a reusable interface/container shell and then tries to pour every argument into it. Core scenes become combinations of title, paragraph, card, chip, footer, panel or small image even when the narration requires footage-led storytelling, source evidence, spatial relationships, data geometry, object-state change, or another visual relationship.
+
+This is different from ordinary template repetition. A card or panel may be valid in one scene. The failure is using UI/container composition as the default authoring mode for the film's important explanatory scenes.
+
+**Required behavior:**
+
+- Author core explanatory scenes **visual-first**: first determine what the viewer must see change or relate, then choose footage, evidence, data geometry, spatial composition, object/state transformation and only then any supporting UI container.
+- A UI component may frame or label the explanation; it may not substitute for the explanation merely because it is easy to generate.
+- During representative review, inspect whether the argument is carried by visible relationships/actions or mainly by text placed inside containers.
+- If several materially different core shots reduce to the same container-first silhouette, classify the production path as regressed even when colors, typography, animation, schema and technical checks pass.
+- The HongHao 0914 case is the canonical regression fixture for this class because the useful V9 change came from abandoning webpage/card-first construction and making footage plus scene-specific relationships the primary visual language.
+
 ## Required project state
 
 For non-trivial long-form production, keep `manifest/production_state.json` as a small control-plane record. It is not a storyboard and must not duplicate shot content.
