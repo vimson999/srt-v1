@@ -9,13 +9,18 @@ readme = (ROOT / 'tests' / 'fixtures' / 'srt-regression' / 'README.md').read_tex
 cases = json.loads((ROOT / 'tests' / 'fixtures' / 'srt-regression' / 'cases.json').read_text(encoding='utf-8'))
 honghao = next(item for item in cases['cases'] if item['case_id'] == 'honghao-0914-argument-turn')
 
+
+def has_ui_first(text: str) -> bool:
+    return 'ui-first' in text or 'ui_first' in text
+
+
 checks = {
-    'failure class exists': 'fr-11' in failure and 'ui-first' in failure,
+    'failure class exists': 'fr-11' in failure and has_ui_first(failure),
     'skill routes through production standard': 'references/production-standard.md' in skill,
-    'standard is visual-first': 'visual-first' in standard and 'ui-first' in standard,
+    'standard is visual-first': 'visual-first' in standard and has_ui_first(standard),
     'standard covers container-first': 'container-first' in standard and 'visual relationship' in standard,
     'honghao covers fr-11': 'FR-11' in honghao['primary_failure_classes'],
-    'library documents mode regression': 'ui-first' in readme and 'visual-first' in readme,
+    'library documents mode regression': has_ui_first(readme) and 'visual-first' in readme,
 }
 
 failed = [name for name, ok in checks.items() if not ok]
