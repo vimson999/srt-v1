@@ -18,7 +18,7 @@ checks = {
     "standing authorization is explicit": "standing authorization" in skill and "standing authorization" in policy,
     "confirmation is not quality control": "confirmation is not a quality-control mechanism" in skill,
     "known regressions are self-repaired": "repair it autonomously" in skill and "repair it autonomously" in policy,
-    "explicit review checkpoint remains valid": "explicit review checkpoint" in skill and "explicit review checkpoint" in policy,
+    "explicit review checkpoint remains valid": "explicitly requested a review checkpoint" in skill and "explicit review checkpoint" in policy,
     "external consequential actions still stop": "externally consequential" in skill and "consequential external action" in policy,
     "old ceremonial three-checkpoint contract removed": "keep the user-facing workflow to three checkpoints" not in skill,
     "old export confirmation ritual removed": "start a long mp4 render only after an explicit request" not in skill,
