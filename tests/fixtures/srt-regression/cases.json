@@ -28,13 +28,14 @@
       "file": "honghao-0914-argument-turn.srt",
       "duration_seconds": 89.3,
       "source_window": "00:00:42.166-00:02:11.466",
-      "structure_tags": ["named_actors", "public_evidence", "argument_turn", "shared_constraint"],
-      "primary_failure_classes": ["FR-01", "FR-03", "FR-06", "FR-07", "FR-10"],
+      "structure_tags": ["named_actors", "public_evidence", "argument_turn", "shared_constraint", "visual_authoring_mode"],
+      "primary_failure_classes": ["FR-01", "FR-03", "FR-06", "FR-07", "FR-10", "FR-11"],
       "must_demonstrate": [
         "Audience-facing implementation never falls back to planning text.",
         "The argumentative turn changes the visible relationship, not only the title copy.",
         "Repeated named actors/evidence receive source-timed attention rather than generic card rotation.",
-        "A failed visual implementation triggers self-repair instead of asking the user whether it is acceptable."
+        "A failed visual implementation triggers self-repair instead of asking the user whether it is acceptable.",
+        "Core scenes are authored visual-first: footage, spatial relationships, data geometry or object-state change carries the argument; UI containers only support that argument rather than becoming the default scene."
       ]
     },
     {
@@ -82,6 +83,7 @@
     "No known quality regression may be transferred to the user as an acceptance question.",
     "Technical pass, static frame review and continuous visual review remain separate evidence classes.",
     "Representative and expansion work use the canonical production entry and active content revision.",
-    "A repeated P0/P1 failure escalates to mechanism-level repair instead of another broad patch revision."
+    "A repeated P0/P1 failure escalates to mechanism-level repair instead of another broad patch revision.",
+    "Core explanatory scenes remain visual-first and do not silently regress to UI-first or container-first authoring."
   ]
 }
