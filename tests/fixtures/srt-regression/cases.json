@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "library_id": "srt-director-regression-cases",
+  "purpose": "Short real-world SRT cases that reproduce historically expensive directing and production failures before a full-length project is attempted.",
+  "selection_policy": {
+    "smoke": "Run at least one case that overlaps the changed failure class.",
+    "director_change": "Run all cases whose risks overlap the directing change.",
+    "production_gate_change": "Run all cases plus control-plane regression tests.",
+    "release_candidate": "Run the complete case library; visual claims still require rendered review rather than JSON-only success."
+  },
+  "case_contract": {
+    "preserve_source_wording": true,
+    "rebase_start_to_zero": true,
+    "technical_success_is_visual_success": false,
+    "required_path": [
+      "SRT",
+      "narrative_map",
+      "visual_beats",
+      "shots",
+      "representative_render",
+      "self_review",
+      "production_gate"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "honghao-0914-argument-turn",
+      "file": "honghao-0914-argument-turn.srt",
+      "duration_seconds": 89.3,
+      "source_window": "00:00:42.166-00:02:11.466",
+      "structure_tags": ["named_actors", "public_evidence", "argument_turn", "shared_constraint"],
+      "primary_failure_classes": ["FR-01", "FR-03", "FR-06", "FR-07", "FR-10"],
+      "must_demonstrate": [
+        "Audience-facing implementation never falls back to planning text.",
+        "The argumentative turn changes the visible relationship, not only the title copy.",
+        "Repeated named actors/evidence receive source-timed attention rather than generic card rotation.",
+        "A failed visual implementation triggers self-repair instead of asking the user whether it is acceptable."
+      ]
+    },
+    {
+      "case_id": "baiyi-macro-to-ai",
+      "file": "baiyi-macro-to-ai.srt",
+      "duration_seconds": 71.533,
+      "source_window": "00:00:57.133-00:02:08.666",
+      "structure_tags": ["macro_chain", "cross_asset", "principle_resolution", "topic_handoff"],
+      "primary_failure_classes": ["FR-03", "FR-05", "FR-07"],
+      "must_demonstrate": [
+        "Rate, oil, valuation, turnover and asset-selection responsibilities do not collapse into one repeated card shell.",
+        "Background is treated as context while the foreground explains the causal/selection logic.",
+        "The handoff into AI is visually motivated by the argument rather than a template change."
+      ]
+    },
+    {
+      "case_id": "catl-contrarian-share",
+      "file": "catl-contrarian-share.srt",
+      "duration_seconds": 86.833,
+      "source_window": "00:00:31.133-00:01:57.966",
+      "structure_tags": ["contrarian_claim", "multiple_institutions", "target_prices", "market_share_evidence"],
+      "primary_failure_classes": ["FR-02", "FR-03", "FR-06", "FR-07"],
+      "must_demonstrate": [
+        "Three institutions and target prices are aligned and individually addressable when spoken.",
+        "The market-share evidence tests the preceding narrative rather than appearing as another report card.",
+        "Expansion beyond the representative section uses the same canonical production path and quality standard."
+      ]
+    },
+    {
+      "case_id": "xiaomi-demand-vs-pricing",
+      "file": "xiaomi-demand-vs-pricing.srt",
+      "duration_seconds": 88.333,
+      "source_window": "00:00:20.600-00:01:48.933",
+      "structure_tags": ["competing_explanations", "pricing", "launch_incentive", "order_evidence"],
+      "primary_failure_classes": ["FR-03", "FR-05", "FR-07"],
+      "must_demonstrate": [
+        "The two competing explanations are represented as a real comparison/branch rather than two text panels.",
+        "Price cuts, incentives and order evidence change the visible reasoning state when introduced.",
+        "Motion is tied to information progress rather than decorative card entrance."
+      ]
+    }
+  ],
+  "global_assertions": [
+    "No audience-facing planning/internal-production text.",
+    "No known quality regression may be transferred to the user as an acceptance question.",
+    "Technical pass, static frame review and continuous visual review remain separate evidence classes.",
+    "Representative and expansion work use the canonical production entry and active content revision.",
+    "A repeated P0/P1 failure escalates to mechanism-level repair instead of another broad patch revision."
+  ]
+}
