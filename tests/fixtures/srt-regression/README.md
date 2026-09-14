@@ -13,15 +13,16 @@ This directory is a growing regression-case library built from short, rebased ex
 - Do not treat a successful case's layout, colors, component count, or shot count as a universal style.
 - Record the failure class that justified each case so future Skill changes can select the relevant subset.
 - When a new real project exposes a systemic failure that existing cases do not exercise well, add the smallest representative case here instead of waiting for another full-length failure.
+- Core explanatory scenes are reviewed for visual-first authoring. A UI-first or container-first fallback is a regression even when typography, animation, schema and technical rendering all pass.
 
 ## Current cases
 
 | Fixture | Duration | Source window | Why it is useful | Primary regression risks |
 |---|---:|---|---|---|
-| `honghao-0914-argument-turn.srt` | 01:29.300 | 00:00:42.166–00:02:11.466 | Multiple named AI actors and public-statement evidence followed by a clear argumentative turn from the surface safety explanation to a shared constraint. | planning-text leak; example-only fix; state-without-visual-change; template collapse; repeated patch loop |
-| `baiyi-macro-to-ai.srt` | 01:11.533 | 00:00:57.133–00:02:08.666 | Macro evidence moves through rate expectations, oil, valuation pressure, A-share turnover and barbell structure, then resolves into an asset-selection principle and hands off to AI. | template collapse; background-as-decoration; weak beat transition |
-| `catl-contrarian-share.srt` | 01:26.833 | 00:00:31.133–00:01:57.966 | Negative market narrative is contradicted by three investment banks and three target prices, then tested against market-share data. | generic report cards; attention-cue failure; state-only card reveals; sample/full degradation |
-| `xiaomi-demand-vs-pricing.srt` | 01:28.333 | 00:00:20.600–00:01:48.933 | The same event receives a different interpretation; narration branches into two competing explanations, then introduces price cuts, launch incentives and order evidence. | template collapse; evidence/background separation; binary comparison reduced to text panels; motion without information progress |
+| `honghao-0914-argument-turn.srt` | 01:29.300 | 00:00:42.166-00:02:11.466 | Multiple named AI actors and public-statement evidence followed by a clear argumentative turn from the surface safety explanation to a shared constraint. It is also the canonical case for the visual-authoring mode change that finally appeared in V9. | planning-text leak; example-only fix; state-without-visual-change; template collapse; repeated patch loop; UI-first collapse |
+| `baiyi-macro-to-ai.srt` | 01:11.533 | 00:00:57.133-00:02:08.666 | Macro evidence moves through rate expectations, oil, valuation pressure, A-share turnover and barbell structure, then resolves into an asset-selection principle and hands off to AI. | template collapse; background-as-decoration; weak beat transition |
+| `catl-contrarian-share.srt` | 01:26.833 | 00:00:31.133-00:01:57.966 | Negative market narrative is contradicted by three investment banks and three target prices, then tested against market-share data. | generic report cards; attention-cue failure; state-only card reveals; sample/full degradation |
+| `xiaomi-demand-vs-pricing.srt` | 01:28.333 | 00:00:20.600-00:01:48.933 | The same event receives a different interpretation; narration branches into two competing explanations, then introduces price cuts, launch incentives and order evidence. | template collapse; evidence/background separation; binary comparison reduced to text panels; motion without information progress |
 
 ## Minimum regression checks
 
@@ -36,6 +37,7 @@ For each applicable fixture confirm:
 7. Technical success is recorded separately from visual review.
 8. A failed self-review is repaired by the production system; it is not converted into a user question asking whether a known regression is acceptable.
 9. The second occurrence of the same P0/P1 class escalates to a mechanism-level repair instead of another broad revision.
+10. Core scenes remain visual-first: footage, source evidence, spatial relationships, data geometry or object-state change carries the explanation. UI containers may support the scene, but cannot become the default scene merely because they are easy to generate.
 
 ## Test tiers
 
