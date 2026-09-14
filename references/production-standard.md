@@ -4,6 +4,10 @@ Read before authoring a sample, extending a film, or recovering a quality
 regression. A sample tests production decisions; it does not define a separate
 quality tier. The full film executes the same decisions over more content.
 
+Also read `failure-regression.md` before scaling a representative sample into a
+full film or after any repeated quality failure. The regression rules are stop
+conditions, not optional advice.
+
 ## 1. Establish the authority before the output
 
 Use three scopes:
@@ -80,6 +84,26 @@ Record the standard revision separately from the render/content revision.
 The first identifies the rules; the second identifies their concrete execution.
 See `render-reliability.md` for safe segment reuse after a source change.
 
+### Mandatory expansion probe
+
+Do not jump directly from one accepted sample to broad full-film production.
+After the representative sample passes, extend the **same canonical production
+entry and content revision** into a small expansion probe that covers at least
+3–5 materially different later shots (or an equivalent set that exercises the
+known risks). The probe exists to catch the common failure where the sample is
+hand-authored but later content collapses into generic cards, fallback scenes,
+or a lower-quality renderer.
+
+Record the control-plane state in `manifest/production_state.json` and run:
+
+```bash
+python3 scripts/validate_production.py PROJECT --stage scale
+```
+
+A blocked scale gate means stop broad generation/rendering. Fix the production
+mechanism and rerun the smallest useful sample; do not spend tokens producing a
+new full revision merely to see whether the same failure still exists.
+
 ## 4. Full coverage of decisions, honest coverage of checks
 
 For every shot, keep `standard_ref`, `standard_revision`, `implementation_ref`,
@@ -104,6 +128,38 @@ erase recorded limitations, or approve every incidental design choice. If a
 source change affects an accepted artifact, retain the historical acceptance
 and mark the newer output's review state independently.
 
+Before a final export, run:
+
+```bash
+python3 scripts/validate_production.py PROJECT --stage full-export
+```
+
+This gate does not claim aesthetic excellence. It prevents known production
+regressions from being silently promoted into a final render: sample/full path
+divergence, active fallback generation, repeated unresolved failure classes,
+planning-text leakage, incomplete full-film implementation/review, and missing
+render preflight.
+
+## 5. Failure escalation instead of patch loops
+
+When a user reports a defect, first decide whether it is local or a recurrence
+class. For P0/P1 failures use the canonical classes in `failure-regression.md`.
+A user example is evidence of a class, not permission to repair only that one
+shot.
+
+If the same P0/P1 class appears a second time in the project:
+
+1. stop broad production;
+2. record `occurrence_count >= 2` and mark the regression `escalated`;
+3. identify and change the responsible production mechanism/path;
+4. scan analogous shots across the whole plan/implementation;
+5. render a focused regression sample;
+6. resume only after `validate_production.py` passes.
+
+The default response to a repeated systemic failure must not be “patch another
+version”. This rule exists specifically to reduce expensive iteration and token
+waste.
+
 ## Frequent decision traps
 
 | Temptation | Required response |
@@ -113,3 +169,5 @@ and mark the newer output's review state independently.
 | “The recipe has all lifecycle fields.” | Verify that those phases actually create the promised visual change. |
 | “Technical checks passed; the rest should be fine.” | Keep unviewed states unreviewed and fix known implementation gaps before claiming conformance. |
 | “This accepted case used many custom components.” | Preserve the reasoning and checks, not its component count or file structure. |
+| “The user showed one broken shot; fix that shot.” | Classify the failure and scan all analogues before declaring it fixed. |
+| “The first fix failed; try another cosmetic patch.” | On the second P0/P1 occurrence, stop and repair the production mechanism. |
